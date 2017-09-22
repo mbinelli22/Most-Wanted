@@ -7,14 +7,15 @@ function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
     case 'yes':
-    // TODO: search by name
+    searchByName();
     break;
     case 'no':
     // TODO: search by traits
     break;
     default:
-    alert("Invalid input. Please enter either Yes or No.");
     // app(people); // restart app
+    alert("Invalid entry. Please enter either \"yes\" or \"no\"");
+    app(people); // restart app
     break;
   }
 }
@@ -94,13 +95,33 @@ function chars(input){
   return true; // default validation only
 }
 
-function runApp() {
-  app();
-
-}
-runApp();
 
 function findHeight() {
   var billyHeight = data[0].height[0];
 
 }
+
+function getAge () {
+
+}
+
+function runApp () {
+
+  // var id = (data[].id);
+  // var firstName = data[].firstName;
+  // var lastName = data[].lastName;
+  // var gender = data[].gender;
+  // var dob = data[].dob;
+  // var height = data[].height;
+  // var weight = data[].weight;
+  // var eyeColor = data[].eyeColor;
+  // var occupation = data[].occupation;
+  // var parents = data[].parents;
+  // var currentSpouse = data[].currentSpouse;
+function searchByTraits () {
+ 
+}
+
+}
+
+runApp();
