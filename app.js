@@ -1,5 +1,3 @@
-
-
 /*
 Build all of your functions for displaying and gathering information below (GUI).
 */
@@ -15,6 +13,7 @@ function app(people){
     // TODO: search by traits
     break;
     default:
+    // app(people); // restart app
     alert("Invalid entry. Please enter either \"yes\" or \"no\"");
     app(people); // restart app
     break;
@@ -95,6 +94,12 @@ function yesNo(input){
 function chars(input){
 
   return true; // default validation only
+}
+
+
+function findHeight() {
+  var billyHeight = data[0].height[0];
+
 }
 
 function getAge () {
