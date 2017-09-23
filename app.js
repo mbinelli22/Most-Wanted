@@ -125,3 +125,23 @@ function searchByTraits () {
 }
 
 runApp();
+
+
+
+//Object Constructor
+// function Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, occupation, parents, currentSpouse) {
+//   this.id = id;
+//   this.firstName = firstname;
+//   this.lastName = lastName;
+//   this.gender = gender;
+//   this.dob = dob;
+//   this.height = height;
+//   this.weight = weight;
+//   this.eyeColor = eyeColor;
+//   this.occupation = occupation;
+//   this.parents = parents;
+//   this.currentSpouse = currentSpouse;
+//   // this.age = function age(//current date - (data[x].dob, convert from string, adjust for zero indexing, convert to output to match date function) {
+//   }
+// }
+// Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, occupation, parents, currentSpouse);
