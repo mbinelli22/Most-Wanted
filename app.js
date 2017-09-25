@@ -7,7 +7,7 @@ function app(people){
   var searchType = prompt("Do you know the name of the person you are looking for? Enter 'yes' or 'no'").toLowerCase();
   switch(searchType){
     case 'yes':
-    searchByName();
+    searchByName(people);
     break;
     case 'no':
     searchByTraits();
@@ -52,6 +52,25 @@ function mainMenu(person, people){
   }
 }
 
+function searchByName(people){
+
+  var firstName = promptFor("What is the person's first name?", chars);
+  var lastName = promptFor("What is the person's last name?", chars);
+
+  var filteredPeople = people.filter(function (person) {
+    if (person.lastName == lastName) {
+    return true;
+    } else {
+      return false;
+    }
+  });
+  console.log(filteredPeople);
+  
+  // TODO: find the person using the name they entered
+  //var new array = people.filter
+  //console.log(//array of all matching names from original - new array)
+}
+
 // alerts a list of people
 function displayPeople(people){
   alert(people.map(function(person){
@@ -93,10 +112,10 @@ function chars(input){
 }
 
 
-function findHeight() {
-  var billyHeight = data[0].height[0];
+// function findHeight() {
+//   var billyHeight = data[0].height[0];
 
-}
+// }
 
 function getAge () {
 }
@@ -116,9 +135,10 @@ function runApp () {
   // var parents = data[].parents;
   // var currentSpouse = data[].currentSpouse;
 
-}
+// }
 
-runApp();
+app(data);
+
 
 
 
@@ -161,6 +181,34 @@ function searchByAge(people) {
 
 function searchByHeight(people) {
   let height = promptFor("What is the person's height?", chars);
+
+// function Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, occupation, parents, currentSpouse) {
+//   this.id = id;
+//   this.firstName = firstname;
+//   this.lastName = lastName;
+//   this.gender = gender;
+//   this.dob = dob;
+//   this.height = height;
+//   this.weight = weight;
+//   this.eyeColor = eyeColor;
+//   this.occupation = occupation;
+//   this.parents = parents;
+//   this.currentSpouse = currentSpouse;
+  // this.age = function age(//current date - (data[x].dob, convert from string, adjust for zero indexing, convert to output to match date function) {
+  // }
+// Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, occupation, parents, currentSpouse);
+// person.data[0].gender; 
+
+function searchByAge(argument) {
+  let age = promptFor("What is the person\'s age?", chars);
+
+    // TODO: find the person using the age they entered
+}
+
+function searchByHeight(argument) {
+
+  let height = promptFor("What is the person\'s height?", chars);
+
     // TODO: find the person using the height they entered
     function inchesToFeet(v) {
       let feet = Math.floor(v/12);
@@ -171,8 +219,9 @@ function searchByHeight(people) {
 }
 
 
-function searchByWeight(people) {
-    let weight = promptFor("What is the person's weight?", chars);
+function searchByWeight(argument) {
+
+    let weight = promptFor("What is the person\'s weight?", chars);
   // TODO: find the person using the weight they entered
   let filteredPeople;
   filteredPeople = searchByWeight(people);
@@ -189,14 +238,25 @@ function searchByWeight(people) {
 // mainMenu(filteredPeople[0],people);
 
 
-function searchByOccupation(people) {
-    let occupation = promptFor("What is the person's occupation?", chars);
+function searchByOccupation(argument) {
+
+    let occupation = promptFor("What is the person\'s occupation?", chars)
+
   // TODO: find the person using the occupation they entered
+  data.filter(function (el){
+    if (el= occupation){
+      return true;
+    }
+    else {
+      return false;
+    }
+  });
 }
 
-function searchByEyeColor(people) {
-    let eyeColor = promptFor("What is the person's eye color", chars);
-    // TODO: find the person using the eye color they entered
+function searchByEyeColor(argument) {
+
+    let eyeColor = promptFor("What is the person\'s eye color?", chars);
+       // TODO: find the person using the eye color they entered
   }
 
 function searchByTraits (people) {
