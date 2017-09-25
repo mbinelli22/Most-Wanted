@@ -123,11 +123,10 @@ function chars(input){
 function getAge () {
 }
 
-<<<<<<< HEAD
-=======
-function runApp () {
-  app(data);
->>>>>>> f9a0d442d796eaa3e0087311c090de26ec0c90a3
+
+// function runApp () {
+//   app(data);
+
 
   // var id = (data[].id);
   // var firstName = data[].firstName;
@@ -196,24 +195,21 @@ function searchByWeight(argument) {
 function searchByOccupation(argument) {
 
     let occupation = promptFor("What is the person\'s occupation?", chars)
-
-  // TODO: find the person using the occupation they entered
-  data.filter(function (el){
-    if (el= occupation){
-      return true;
-    }
-    else {
+    let filteredOccupations = data.filter(function (occupation) {
+    if (data.occupation == occupation) {
+    return true;
+    } else {
       return false;
     }
-  });
-}
 
+  });
+  alert("These are the people we found matching your search:" + filteredOccupations);
+}
 
 function searchByEyeColor(argument) {
 
     let eyeColor = promptFor("What is the person\'s eye color?", chars);
        // TODO: find the person using the eye color they entered
-    // TODO: find the person using the eye color they entered
   }
 
 function searchByTraits () {
