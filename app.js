@@ -60,7 +60,8 @@ function searchByName(people){
   var filteredPeople = people.filter(function (person) {
     if (person.lastName == lastName) {
     return true;
-    } else {
+    } 
+    else {
       return false;
     }
   });
@@ -120,8 +121,8 @@ function chars(input){
 function getAge () {
 }
 
-function runApp () {
-  app(data);
+// function runApp () {
+//   app(data);
 
   // var id = (data[].id);
   // var firstName = data[].firstName;
@@ -174,31 +175,6 @@ function searchByName(people){
 // TODO: find the person using the name they entered
 }
 
-function searchByAge(people) {
-  let age = promptFor("What is the person's age?", chars);
-    // TODO: find the person using the age they entered
-}
-
-function searchByHeight(people) {
-  let height = promptFor("What is the person's height?", chars);
-
-// function Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, occupation, parents, currentSpouse) {
-//   this.id = id;
-//   this.firstName = firstname;
-//   this.lastName = lastName;
-//   this.gender = gender;
-//   this.dob = dob;
-//   this.height = height;
-//   this.weight = weight;
-//   this.eyeColor = eyeColor;
-//   this.occupation = occupation;
-//   this.parents = parents;
-//   this.currentSpouse = currentSpouse;
-  // this.age = function age(//current date - (data[x].dob, convert from string, adjust for zero indexing, convert to output to match date function) {
-  // }
-// Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, occupation, parents, currentSpouse);
-// person.data[0].gender; 
-
 function searchByAge(argument) {
   let age = promptFor("What is the person\'s age?", chars);
 
@@ -220,20 +196,17 @@ function searchByHeight(argument) {
 
 
 function searchByWeight(argument) {
-
-    let weight = promptFor("What is the person\'s weight?", chars);
-  // TODO: find the person using the weight they entered
-  let filteredPeople;
-  filteredPeople = searchByWeight(people);
-
-// copied this from mike but doesnt work yet.
-// let newArray = people.filter(function (el) {
+  let weight = promptFor("What is the person\'s weight?", chars);
+//   let filteredPeople;
+//   filteredPeople = searchByWeight(people);
+// // copied this from mike but doesnt work yet.
+//   let newArray = people.filter(function (el) {
 //   if (el.weight == weight){
 //     return true;
 //   }
-// });
-// return newArray;
-// }
+//   });
+//   return newArray;
+//   }
 
 // mainMenu(filteredPeople[0],people);
 
@@ -282,6 +255,5 @@ function searchByTraits (people) {
     searchByTraits();
     break;
   } 
-
 }
 
