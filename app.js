@@ -10,11 +10,12 @@ function app(people){
     searchByName();
     break;
     case 'no':
-    // TODO: search by traits
+    searchByTraits();
     break;
     default:
     // app(people); // restart app
     alert("Invalid entry. Please enter either \"yes\" or \"no\"");
+       // This still doesnt work. what if we made another case for when promptFor != yes || no? 
     app(people); // restart app
     break;
   }
@@ -61,6 +62,7 @@ function searchByName(people){
 
 }
 
+
 // alerts a list of people
 function displayPeople(people){
   alert(people.map(function(person){
@@ -90,6 +92,13 @@ function yesNo(input){
   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
 }
 
+// helper function to pass into promptFor to validate for the searchByTraits function
+function ageHeightWeightOccupationEyeColor(input){
+  return input.toLowerCase() == "age" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "occupation" || input.toLowerCase() == "eye color";
+}
+
+
+
 // helper function to pass in as default promptFor validation
 function chars(input){
 
@@ -106,6 +115,7 @@ function getAge () {
 }
 
 function runApp () {
+  app();
 
   // var id = (data[].id);
   // var firstName = data[].firstName;
@@ -118,9 +128,6 @@ function runApp () {
   // var occupation = data[].occupation;
   // var parents = data[].parents;
   // var currentSpouse = data[].currentSpouse;
-function searchByTraits () {
- 
-}
 
 }
 
@@ -145,3 +152,54 @@ runApp();
 //   }
 // }
 // Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, occupation, parents, currentSpouse);
+function searchByAge(argument) {
+  let age = promptFor("What is the person's age?", chars());
+    // TODO: find the person using the age they entered
+}
+
+function searchByHeight(argument) {
+  let height = promptFor("What is the person's height?", chars());
+    // TODO: find the person using the height they entered
+}
+
+function searchByWeight(argument) {
+    let weight = promptFor("What is the person's weight?", chars());
+  // TODO: find the person using the weight they entered
+}
+
+function searchByOccupation(argument) {
+    let occupation = promptFor("What is the person's occupation?", chars());
+  // TODO: find the person using the occupation they entered
+}
+
+function searchByEyeColor(argument) {
+    let eyeColor = promptFor("What is the person's eye color", chars());
+    // TODO: find the person using the eye color they entered
+  }
+
+function searchByTraits () {
+  let traitType = promptFor("Enter the type of trait you want to search for. Enter 'age', 'height', 'weight', 'occupation' or 'eye color'", ageHeightWeightOccupationEyeColor).toLowerCase();
+  switch (traitType) {
+    case "age":
+      searchByAge();
+      break;
+    case "height":
+      searchByHeight();
+      break;
+    case "weight":
+      searchByWeight();
+      break;
+    case "occupation":
+      searchByOccupation();
+      break;
+    case "eye color":
+      searchByEyeColor();
+      break;
+    default:
+    alert("Invalid entry. Please enter either \"age\" \"height\" \"weight\" \"occupation\" or \"eye color\"");
+    searchByTraits();
+    break;
+  } 
+
+}
+
