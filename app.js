@@ -14,7 +14,7 @@ function app(people){
     break;
     default:
     // app(people); // restart app
-    alert("Invalid entry. Please enter either \"yes\" or \"no\"");
+    alert("Invalid entry. Please enter either 'yes' or 'no'");
        // This still doesnt work. what if we made another case for when promptFor != yes || no? 
     app(people); // restart app
     break;
@@ -55,11 +55,11 @@ function mainMenu(person, people){
 }
 
 function searchByName(people){
-  var firstName = promptFor("What is the person's first name?", chars);
-  var lastName = promptFor("What is the person's last name?", chars);
+  var firstName = promptFor("What is the person's first name?", chars).toLowerCase();
+  var lastName = promptFor("What is the person's last name?", chars).toLowerCase();
 
   var filteredPeople = people.filter(function (person) {
-    if (person.lastName == lastName) {
+    if (person.lastName.toLowerCase() == lastName) {
     return true;
     } else {
       return false;
@@ -213,7 +213,7 @@ function searchByTraits () {
       searchByEyeColor();
       break;
     default:
-    alert("Invalid entry. Please enter either \"age\" \"height\" \"weight\" \"occupation\" or \"eye color\"");
+    alert("Invalid entry. Please enter either 'age' 'height' 'weight' 'occupation' or 'eye color'");
     searchByTraits();
     break;
   } 
