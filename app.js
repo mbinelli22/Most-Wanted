@@ -97,8 +97,6 @@ function ageHeightWeightOccupationEyeColor(input){
   return input.toLowerCase() == "age" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "occupation" || input.toLowerCase() == "eye color";
 }
 
-
-
 // helper function to pass in as default promptFor validation
 function chars(input){
 
@@ -135,23 +133,24 @@ runApp();
 
 
 
-//Object Constructor
-// function Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, occupation, parents, currentSpouse) {
-//   this.id = id;
-//   this.firstName = firstname;
-//   this.lastName = lastName;
-//   this.gender = gender;
-//   this.dob = dob;
-//   this.height = height;
-//   this.weight = weight;
-//   this.eyeColor = eyeColor;
-//   this.occupation = occupation;
-//   this.parents = parents;
-//   this.currentSpouse = currentSpouse;
-//   // this.age = function age(//current date - (data[x].dob, convert from string, adjust for zero indexing, convert to output to match date function) {
-//   }
-// }
-// Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, occupation, parents, currentSpouse);
+// Object Constructor
+function Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, occupation, parents, currentSpouse) {
+  this.id = id;
+  this.firstName = firstname;
+  this.lastName = lastName;
+  this.gender = gender;
+  this.dob = dob;
+  this.height = height;
+  this.weight = weight;
+  this.eyeColor = eyeColor;
+  this.occupation = occupation;
+  this.parents = parents;
+  this.currentSpouse = currentSpouse;
+  // this.age = function age(//current date - (data[x].dob, convert from string, adjust for zero indexing, convert to output to match date function) {
+  }
+Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, occupation, parents, currentSpouse);
+person.data[0].gender; 
+
 function searchByAge(argument) {
   let age = promptFor("What is the person's age?", chars());
     // TODO: find the person using the age they entered
@@ -160,7 +159,14 @@ function searchByAge(argument) {
 function searchByHeight(argument) {
   let height = promptFor("What is the person's height?", chars());
     // TODO: find the person using the height they entered
+    function inchesToFeet(v) {
+      let feet = Math.floor(v/12);
+      let inches = v%12;
+      return feet + "'" + inches + "\"";
+    }
+    let inchesToFeetConverted = inchesToFeet(height);
 }
+
 
 function searchByWeight(argument) {
     let weight = promptFor("What is the person's weight?", chars());
