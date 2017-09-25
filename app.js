@@ -4,7 +4,7 @@ Build all of your functions for displaying and gathering information below (GUI)
 
 // app is the function called to start the entire application
 function app(people){
-  var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
+  var searchType = prompt("Do you know the name of the person you are looking for? Enter 'yes' or 'no'").toLowerCase();
   switch(searchType){
     case 'yes':
     searchByName();
@@ -13,10 +13,8 @@ function app(people){
     searchByTraits();
     break;
     default:
-    // app(people); // restart app
     alert("Invalid entry. Please enter either \"yes\" or \"no\"");
-       // This still doesnt work. what if we made another case for when promptFor != yes || no? 
-    app(people); // restart app
+    app(people);
     break;
   }
 }
@@ -53,15 +51,6 @@ function mainMenu(person, people){
     return mainMenu(person, people); // ask again
   }
 }
-
-function searchByName(people){
-  var firstName = promptFor("What is the person's first name?", chars());
-  var lastName = promptFor("What is the person's last name?", chars( ));
-
-  // TODO: find the person using the name they entered
-
-}
-
 
 // alerts a list of people
 function displayPeople(people){
@@ -113,7 +102,7 @@ function getAge () {
 }
 
 function runApp () {
-  app();
+  app(data);
 
   // var id = (data[].id);
   // var firstName = data[].firstName;
@@ -146,18 +135,32 @@ function Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, 
   this.occupation = occupation;
   this.parents = parents;
   this.currentSpouse = currentSpouse;
-  // this.age = function age(//current date - (data[x].dob, convert from string, adjust for zero indexing, convert to output to match date function) {
   }
-Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, occupation, parents, currentSpouse);
-person.data[0].gender; 
+  // this.age = function age(//current date - (data[x].dob, convert from string, adjust for zero indexing, convert to output to match date function) {
+// Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, occupation, parents, currentSpouse);
+// console.log(people[0].gender);
 
-function searchByAge(argument) {
-  let age = promptFor("What is the person's age?", chars());
+// find current date
+let date = new Date();
+let currentMonth = date.getMonth();
+let currentDate = date.getDate();
+let currentYear = date.getFullYear();
+console.log(date);
+
+
+function searchByName(people){
+  var firstName = promptFor("What is the person's first name?", chars);
+  var lastName = promptFor("What is the person's last name?", chars);
+// TODO: find the person using the name they entered
+}
+
+function searchByAge(people) {
+  let age = promptFor("What is the person's age?", chars);
     // TODO: find the person using the age they entered
 }
 
-function searchByHeight(argument) {
-  let height = promptFor("What is the person's height?", chars());
+function searchByHeight(people) {
+  let height = promptFor("What is the person's height?", chars);
     // TODO: find the person using the height they entered
     function inchesToFeet(v) {
       let feet = Math.floor(v/12);
@@ -168,38 +171,51 @@ function searchByHeight(argument) {
 }
 
 
-function searchByWeight(argument) {
-    let weight = promptFor("What is the person's weight?", chars());
+function searchByWeight(people) {
+    let weight = promptFor("What is the person's weight?", chars);
   // TODO: find the person using the weight they entered
-}
+  let filteredPeople;
+  filteredPeople = searchByWeight(people);
 
-function searchByOccupation(argument) {
-    let occupation = promptFor("What is the person's occupation?", chars());
+// copied this from mike but doesnt work yet.
+// let newArray = people.filter(function (el) {
+//   if (el.weight == weight){
+//     return true;
+//   }
+// });
+// return newArray;
+// }
+
+// mainMenu(filteredPeople[0],people);
+
+
+function searchByOccupation(people) {
+    let occupation = promptFor("What is the person's occupation?", chars);
   // TODO: find the person using the occupation they entered
 }
 
-function searchByEyeColor(argument) {
-    let eyeColor = promptFor("What is the person's eye color", chars());
+function searchByEyeColor(people) {
+    let eyeColor = promptFor("What is the person's eye color", chars);
     // TODO: find the person using the eye color they entered
   }
 
-function searchByTraits () {
+function searchByTraits (people) {
   let traitType = promptFor("Enter the type of trait you want to search for. Enter 'age', 'height', 'weight', 'occupation' or 'eye color'", ageHeightWeightOccupationEyeColor).toLowerCase();
   switch (traitType) {
     case "age":
-      searchByAge();
+      searchByAge(people);
       break;
     case "height":
-      searchByHeight();
+      searchByHeight(people);
       break;
     case "weight":
-      searchByWeight();
+      searchByWeight(people);
       break;
     case "occupation":
-      searchByOccupation();
+      searchByOccupation(people);
       break;
     case "eye color":
-      searchByEyeColor();
+      searchByEyeColor(people);
       break;
     default:
     alert("Invalid entry. Please enter either \"age\" \"height\" \"weight\" \"occupation\" or \"eye color\"");
