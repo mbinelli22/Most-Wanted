@@ -10,7 +10,7 @@ function app(people){
     searchByName(people);
     break;
     case 'no':
-    searchByTraits();
+    searchByTraits(people);
     break;
     default:
     alert("Invalid entry. Please enter either 'yes' or 'no'.");
@@ -55,9 +55,9 @@ function mainMenu(person, people){
 
 function searchByName(people){
 
- let lastName = promptFor("What is the person's last name?", chars).toLowerCase();
+  let lastName = promptFor("What is the person's LAST name?", chars).toLowerCase();
 
- let filteredByLastName = people.filter(function (person) {
+  let filteredByLastName = people.filter(function (person) {
     if (person.lastName.toLowerCase() == lastName) {
       return true;
     } else {
@@ -66,7 +66,7 @@ function searchByName(people){
   });
   console.log(filteredByLastName);
 
- let firstName = promptFor("What is the person's first name?", chars).toLowerCase();
+  let firstName = promptFor("What is the person's FIRST name?", chars).toLowerCase();
   let firstAndLastName = filteredByLastName.filter(function (person) {
     if (person.firstName.toLowerCase() == firstName) {
       return true;
@@ -75,9 +75,6 @@ function searchByName(people){
     }
   });
   console.log(firstAndLastName);
-  // TODO: find the person using the name they entered
-  //var new array = people.filter
-  //console.log(//array of all matching names from original - new array)
 }
 
 // alerts a list of people
@@ -110,7 +107,7 @@ function yesNo(input){
 }
 
 // helper function to pass into promptFor to validate for the searchByTraits function
-function ageHeightWeightOccupationEyeColor(input){
+function searchByFeature(input){
   return input.toLowerCase() == "age" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "occupation" || input.toLowerCase() == "eye color";
 }
 
@@ -121,9 +118,9 @@ function chars(input){
 }
 
 
+
 function getAge () {
 }
-
 
 
 // function runApp () {
@@ -177,51 +174,44 @@ function searchByAge(people) {
 }
 
 function searchByHeight(people) {
-  let height = promptFor("What is the person's height?", chars);
-}
-// function Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, occupation, parents, currentSpouse) {
-//   this.id = id;
-//   this.firstName = firstname;
-//   this.lastName = lastName;
-//   this.gender = gender;
-//   this.dob = dob;
-//   this.height = height;
-//   this.weight = weight;
-//   this.eyeColor = eyeColor;
-//   this.occupation = occupation;
-//   this.parents = parents;
-//   this.currentSpouse = currentSpouse;
-  // this.age = function age(//current date - (data[x].dob, convert from string, adjust for zero indexing, convert to output to match date function) {
-  // }
-// Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, occupation, parents, currentSpouse);
-// person.data[0].gender; 
-
-function searchByAge(argument) {
-  let age = promptFor("What is the person\'s age?", chars);
-
-    // TODO: find the person using the age they entered
+  let height = promptFor("What is the person's height IN INCHES?", chars);
+  let filteredByHeight;
+  if (height > 0) {
+  filteredByHeight = people.filter(function (person) {
+        if (person.height == height) {
+          return true;
+        } else {
+          return false;
+        }
+    });
+  } else {
+    alert("Not a valid height.  Please enter height IN INCHES.");
+    return searchByHeight(people);
+  }
+  console.log(filteredByHeight);
 }
 
-function searchByHeight(argument) {
+function searchByWeight(people) {
 
-  let height = promptFor("What is the person\'s height?", chars);
-
-    // TODO: find the person using the height they entered
-    function inchesToFeet(v) {
-      let feet = Math.floor(v/12);
-      let inches = v%12;
-      return feet + "'" + inches + "\"";
-    }
-    let inchesToFeetConverted = inchesToFeet(height);
+  let weight = promptFor("What is the person's weight in pounds?", chars);
+  let filteredByWeight;
+  if (weight > 0) {
+    filteredByWeight = people.filter(function (person) {
+      if (person.weight == weight) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  } else {
+    alert("Not a valid weight.  Please enter the person's weight IN POUNDS.")
+    return searchByWeight(people);
+  }
+  console.log(filteredByWeight);
 }
-
-
-function searchByWeight(argument) {
-
-    let weight = promptFor("What is the person\'s weight?", chars);
   // TODO: find the person using the weight they entered
-  let filteredPeople;
-  filteredPeople = searchByWeight(people);
+  // let filteredPeople;
+  // filteredPeople = searchByWeight(people);
 
 // copied this from mike but doesnt work yet.
 // let newArray = people.filter(function (el) {
@@ -230,7 +220,7 @@ function searchByWeight(argument) {
 //   }
 // });
 // return newArray;
-}
+
 
 // mainMenu(filteredPeople[0],people);
 
@@ -275,7 +265,7 @@ function searchByEyeColor(argument) {
   }
 
 function searchByTraits (people) {
-  let traitType = promptFor("Enter the type of trait you want to search for. Enter 'age', 'height', 'weight', 'occupation' or 'eye color'", ageHeightWeightOccupationEyeColor).toLowerCase();
+  let traitType = promptFor("Enter the type of trait you want to search for. Enter 'age', 'height', 'weight', 'occupation' or 'eye color'", searchByFeature).toLowerCase();
   switch (traitType) {
     case "age":
       searchByAge(people);
@@ -297,4 +287,30 @@ function searchByTraits (people) {
     searchByTraits();
     break;
   } 
+}
+
+// function splitBirthday (dob) {
+//   dobArray = dob.split("/");
+//   let month = dobArray[0];
+//   let day = dobArray[1];
+//   let year = dobArray[2];
+// }
+// splitBirthday(data.dob);
+
+// function currentDate (Date) {
+//   let currentDateArray = [Date.month, Date.day, Date.year];
+// }
+
+// function calculateAge (splitBirthday, currentDate)
+// // find current date
+// // let date = new Date();
+// // let currentMonth = date.getMonth();
+// // let currentDate = date.getDate();
+// // let currentYear = date.getFullYear();
+// // console.log(date);
+
+
+// function searchByAge(people) {
+//   let age = promptFor("What is the person's age?", chars);
+//     // TODO: find the person using the age they entered
 }
