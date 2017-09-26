@@ -56,20 +56,26 @@ function mainMenu(person, people){
 
 function searchByName(people){
  
-  var lastName = promptFor("What is the person's last name?", chars).toLowerCase();
+  let lastName = promptFor("What is the person's last name?", chars).toLowerCase();
 
-  var filteredByLastName = people.filter(function (person) {
+  let filteredByLastName = people.filter(function (person) {
     if (person.lastName.toLowerCase() == lastName) {
-    return true;
+      return true;
     } else {
       return false;
     }
   });
   console.log(filteredByLastName);
-  var firstName = promptFor("What is the person's first name?", chars).toLowerCase();
-  // TODO: find the person using the name they entered
-  //var new array = people.filter
-  //console.log(//array of all matching names from original - new array)
+
+  let firstName = promptFor("What is the person's first name?", chars).toLowerCase();
+  let firstAndLastName = filteredByLastName.filter(function (person) {
+    if (person.firstName.toLowerCase() == firstName) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+  console.log(firstAndLastName);
 }
 
 // alerts a list of people
@@ -102,7 +108,7 @@ function yesNo(input){
 }
 
 // helper function to pass into promptFor to validate for the searchByTraits function
-function ageHeightWeightOccupationEyeColor(input){
+function searchByFeature(input){
   return input.toLowerCase() == "age" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "occupation" || input.toLowerCase() == "eye color";
 }
 
@@ -156,25 +162,7 @@ function searchByAge(people) {
     // TODO: find the person using the age they entered
 }
 
-function searchByHeight(people) {
-  let height = promptFor("What is the person's height?", chars);
-}
-// function Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, occupation, parents, currentSpouse) {
-//   this.id = id;
-//   this.firstName = firstname;
-//   this.lastName = lastName;
-//   this.gender = gender;
-//   this.dob = dob;
-//   this.height = height;
-//   this.weight = weight;
-//   this.eyeColor = eyeColor;
-//   this.occupation = occupation;
-//   this.parents = parents;
-//   this.currentSpouse = currentSpouse;
-  // this.age = function age(//current date - (data[x].dob, convert from string, adjust for zero indexing, convert to output to match date function) {
-  // }
-// Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, occupation, parents, currentSpouse);
-// person.data[0].gender; 
+
 
 function searchByAge(argument) {
   let age = promptFor("What is the person\'s age?", chars);
@@ -183,7 +171,6 @@ function searchByAge(argument) {
 }
 
 function searchByHeight(argument) {
-
   let height = promptFor("What is the person\'s height?", chars);
 
     // TODO: find the person using the height they entered
@@ -193,6 +180,7 @@ function searchByHeight(argument) {
       return feet + "'" + inches + "\"";
     }
     let inchesToFeetConverted = inchesToFeet(height);
+    console.log(inchesToFeetConverted);
 }
 
 
@@ -237,7 +225,7 @@ function searchByEyeColor(argument) {
   }
 
 function searchByTraits (people) {
-  let traitType = promptFor("Enter the type of trait you want to search for. Enter 'age', 'height', 'weight', 'occupation' or 'eye color'", ageHeightWeightOccupationEyeColor).toLowerCase();
+  let traitType = promptFor("Enter the type of trait you want to search for. Enter 'age', 'height', 'weight', 'occupation' or 'eye color'", searchByFeature).toLowerCase();
   switch (traitType) {
     case "age":
       searchByAge(people);
