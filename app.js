@@ -10,7 +10,7 @@ function app(people){
     searchByName(people);
     break;
     case 'no':
-    searchByTraits();
+    searchByTraits(people);
     break;
     default:
     // app(people); // restart app
@@ -56,7 +56,7 @@ function mainMenu(person, people){
 
 function searchByName(people){
  
-  let lastName = promptFor("What is the person's last name?", chars).toLowerCase();
+  let lastName = promptFor("What is the person's LAST name?", chars).toLowerCase();
 
   let filteredByLastName = people.filter(function (person) {
     if (person.lastName.toLowerCase() == lastName) {
@@ -67,7 +67,7 @@ function searchByName(people){
   });
   console.log(filteredByLastName);
 
-  let firstName = promptFor("What is the person's first name?", chars).toLowerCase();
+  let firstName = promptFor("What is the person's FIRST name?", chars).toLowerCase();
   let firstAndLastName = filteredByLastName.filter(function (person) {
     if (person.firstName.toLowerCase() == firstName) {
       return true;
@@ -127,28 +127,6 @@ function chars(input){
 function getAge () {
 }
 
-
-
-
-
-// Object Constructor
-// function Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, occupation, parents, currentSpouse) {
-//   this.id = id;
-//   this.firstName = firstname;
-//   this.lastName = lastName;
-//   this.gender = gender;
-//   this.dob = dob;
-//   this.height = height;
-//   this.weight = weight;
-//   this.eyeColor = eyeColor;
-//   this.occupation = occupation;
-//   this.parents = parents;
-//   this.currentSpouse = currentSpouse;
-//   }
-  // this.age = function age(//current date - (data[x].dob, convert from string, adjust for zero indexing, convert to output to match date function) {
-// Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, occupation, parents, currentSpouse);
-// console.log(people[0].gender);
-
 // find current date
 // let date = new Date();
 // let currentMonth = date.getMonth();
@@ -162,35 +140,54 @@ function searchByAge(people) {
     // TODO: find the person using the age they entered
 }
 
-
-
-function searchByAge(argument) {
-  let age = promptFor("What is the person\'s age?", chars);
-
-    // TODO: find the person using the age they entered
-}
-
-function searchByHeight(argument) {
-  let height = promptFor("What is the person\'s height?", chars);
-
     // TODO: find the person using the height they entered
-    function inchesToFeet(v) {
-      let feet = Math.floor(v/12);
-      let inches = v%12;
-      return feet + "'" + inches + "\"";
-    }
-    let inchesToFeetConverted = inchesToFeet(height);
-    console.log(inchesToFeetConverted);
+//     function inchesToFeet(v) {
+//       let feet = Math.floor(v/12);
+//       let inches = v%12;
+//       return feet + "'" + inches + "\"";
+//     }
+//     let inchesToFeetConverted = inchesToFeet(height);
+//     console.log(inchesToFeetConverted);
+function searchByHeight(people) {
+  let height = promptFor("What is the person's height IN INCHES?", chars);
+  let filteredByHeight;
+  if (height > 0) {
+  filteredByHeight = people.filter(function (person) {
+        if (person.height == height) {
+          return true;
+        } else {
+          return false;
+        }
+    });
+  } else {
+    alert("Not a valid height.  Please enter height IN INCHES.");
+    return searchByHeight(people);
+  }
+  console.log(filteredByHeight);
 }
 
+function searchByWeight(people) {
 
-function searchByWeight(argument) {
-
-    let weight = promptFor("What is the person\'s weight?", chars);
+  let weight = promptFor("What is the person's weight in pounds?", chars);
+  let filteredByWeight;
+  if (weight > 0) {
+    filteredByWeight = people.filter(function (person) {
+      if (person.weight == weight) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  } else {
+    alert("Not a valid weight.  Please enter the person's weight IN POUNDS.")
+    return searchByWeight(people);
+  }
+  console.log(filteredByWeight);
+}
   // TODO: find the person using the weight they entered
-  let filteredPeople;
-  filteredPeople = searchByWeight(people);
-
+  // let filteredPeople;
+  // filteredPeople = searchByWeight(people);
+  
 // copied this from mike but doesnt work yet.
 // let newArray = people.filter(function (el) {
 //   if (el.weight == weight){
@@ -198,7 +195,7 @@ function searchByWeight(argument) {
 //   }
 // });
 // return newArray;
-}
+
 
 // mainMenu(filteredPeople[0],people);
 
