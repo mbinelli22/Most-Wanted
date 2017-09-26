@@ -4,6 +4,7 @@ Build all of your functions for displaying and gathering information below (GUI)
 
 // app is the function called to start the entire application
 function app(people){
+  splitBirthday(people);
   var searchType = prompt("Do you know the name of the person you are looking for? Enter 'yes' or 'no'").toLowerCase();
   switch(searchType){
     case 'yes':
@@ -17,6 +18,28 @@ function app(people){
     app(people);
     break;
   }
+} 
+
+function splitBirthday (people) {
+  for (i=0; i < people.length; i++) {
+    let dobArray = people[i].dob.split("/");
+    let month = dobArray[0]-1;
+    let day = parseInt(dobArray[1]);
+    let year = parseInt(dobArray[2]);
+    let indexedDobArray = [month, day, year];
+    let personAge = calculateAge(indexedDobArray);
+    people[i].age = personAge;
+  }
+}
+
+function calculateAge (indexedDobArray) {
+  let today = new Date();
+  let age = today.getFullYear() - indexedDobArray[2];
+
+  if (today.getMonth() < indexedDobArray[0] || (today.getMonth() == indexedDobArray[0] && today.getDate() < indexedDobArray[1])) {
+    age--;
+  }
+  return age;
 }
 
 // Menu function to call once you find who you are looking for
@@ -50,6 +73,31 @@ function mainMenu(person, people){
     default:
     return mainMenu(person, people); // ask again
   }
+}
+
+function searchByTraits (people) {
+  let traitType = promptFor("Enter the type of trait you want to search for. Enter 'age', 'height', 'weight', 'occupation' or 'eye color'", searchByFeature).toLowerCase();
+  switch (traitType) {
+    case "age":
+      searchByAge(people);
+      break;
+    case "height":
+      searchByHeight(people);
+      break;
+    case "weight":
+      searchByWeight(people);
+      break;
+    case "occupation":
+      searchByOccupation(people);
+      break;
+    case "eye color":
+      searchByEyeColor(people);
+      break;
+    default:
+    alert("Invalid entry. Please enter either 'age' 'height' 'weight' 'occupation' or 'eye color'");
+    searchByTraits();
+    break;
+  } 
 }
 
 function searchByName(people){
@@ -124,10 +172,22 @@ function getAge () {
 
 app(data);
 
-
 function searchByAge(people) {
   let age = promptFor("What is the person's age?", chars);
-    // TODO: find the person using the age they entered
+  let filteredByAge;
+  if (age > 0) {
+  filteredByAge = people.filter(function (person) {
+        if (person.age == age) {
+          return true;
+        } else {
+          return false;
+        }
+    });
+  } else {
+    alert("Not a valid age.  Please enter person's age.");
+    return searchByAge(people);
+  }
+  console.log(filteredByAge);
 }
 
 function searchByHeight(people) {
@@ -151,6 +211,21 @@ function searchByHeight(people) {
   }
    console.log(filteredByHeight);
 };
+
+function searchByOccupation(filteredPeople) {
+
+    let filteredOcc = [];
+    let occupation = promptFor("What is the person\'s occupation?", chars).toLowerCase();
+    let searchedOcc = filteredOcc.push
+    let filteredOccupations = data.filter (function (data) {
+    if (data.filter == occupation.toLowerCase()) {
+    return true;
+    } else {
+      return false;
+    }
+  });
+  console.log("These are the people we found matching your search:" + filteredOcc);
+}
 
 function searchByWeight(people) {
 
@@ -209,52 +284,35 @@ function searchByEyeColor(people) {
     }
 
 
-function searchByTraits (people) {
-  let traitType = promptFor("Enter the type of trait you want to search for. Enter 'age', 'height', 'weight', 'occupation' or 'eye color'", searchByFeature).toLowerCase();
-  switch (traitType) {
-    case "age":
-      searchByAge(people);
-      break;
-    case "height":
-      searchByHeight(people);
-      break;
-    case "weight":
-      searchByWeight(people);
-      break;
-    case "occupation":
-      searchByOccupation(people);
-      break;
-    case "eye color":
-      searchByEyeColor(people);
-      break;
-    default:
-    alert("Invalid entry. Please enter either 'age' 'height' 'weight' 'occupation' or 'eye color'");
-    searchByTraits();
-    break;
-  } 
+// alerts a list of people
+function displayPeople(people){
+  alert(people.map(function(person){
+    return person.firstName + " " + person.lastName;
+  }).join("\n"));
 }
 
-// function splitBirthday (dob) {
-//   dobArray = dob.split("/");
-//   let month = dobArray[0];
-//   let day = dobArray[1];
-//   let year = dobArray[2];
-// }
-// splitBirthday(data.dob);
+function displayPerson(person){
+  var personInfo = "First Name: " + person.firstName + "\n";
+  personInfo += "Last Name: " + person.lastName + "\n";
+  alert(personInfo);
+}
 
-// function currentDate (Date) {
-//   let currentDateArray = [Date.month, Date.day, Date.year];
-// }
+function promptFor(question, valid){
+  do{
+    var response = prompt(question).trim();
+  } while(!response || !valid(response));
+    return response;
+  }
 
-// function calculateAge (splitBirthday, currentDate)
-// // find current date
-// // let date = new Date();
-// // let currentMonth = date.getMonth();
-// // let currentDate = date.getDate();
-// // let currentYear = date.getFullYear();
-// // console.log(date);
+function yesNo(input){
+  return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
+}
 
+function searchByFeature(input){
+  return input.toLowerCase() == "age" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "occupation" || input.toLowerCase() == "eye color";
+}
 
-// function searchByAge(people) {
-//   let age = promptFor("What is the person's age?", chars);
-//     // TODO: find the person using the age they entered
+function chars(input){
+  return true;
+}
+
