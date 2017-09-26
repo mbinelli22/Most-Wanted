@@ -232,28 +232,30 @@ function searchByTraits (people) {
   } 
 }
 
-// function splitBirthday (dob) {
-//   dobArray = dob.split("/");
-//   let month = dobArray[0];
-//   let day = dobArray[1];
-//   let year = dobArray[2];
-// }
-// splitBirthday(data.dob);
-
-// function currentDate (Date) {
-//   let currentDateArray = [Date.month, Date.day, Date.year];
-// }
-
-// function calculateAge (splitBirthday, currentDate)
-// // find current date
-// // let date = new Date();
-// // let currentMonth = date.getMonth();
-// // let currentDate = date.getDate();
-// // let currentYear = date.getFullYear();
-// // console.log(date);
+function splitBirthday (dob) {
+  dobArray = dob.split("/");
+  let month = dobArray[0];
+  let day = dobArray[1];
+  let year = dobArray[2];
+}
+splitBirthday(data.dob);
 
 
-// function searchByAge(people) {
-//   let age = promptFor("What is the person's age?", chars);
-//     // TODO: find the person using the age they entered
+
+function calculateAge (splitBirthday, currentDate) {
+if (today.getMonth() < month || (today.getMonth() == month && today.getDate() < day)) {
+  age--;
+
+}
+// find current date
+// let date = new Date();
+// let currentMonth = date.getMonth();
+// let currentDate = date.getDate();
+// let currentYear = date.getFullYear();
+// console.log(date);
+
+
+function searchByAge(people) {
+  let age = promptFor("What is the person's age?", chars);
+    // TODO: find the person using the age they entered
 }
