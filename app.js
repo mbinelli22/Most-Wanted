@@ -4,6 +4,7 @@ Build all of your functions for displaying and gathering information below (GUI)
 
 // app is the function called to start the entire application
 function app(people){
+  splitBirthday(people);
   var searchType = prompt("Do you know the name of the person you are looking for? Enter 'yes' or 'no'").toLowerCase();
   switch(searchType){
     case 'yes':
@@ -17,7 +18,7 @@ function app(people){
     app(people);
     break;
   }
-}
+} 
 
 
 // Menu function to call once you find who you are looking for
@@ -168,11 +169,6 @@ app(data);
 // console.log(date);
 
 
-function searchByAge(people) {
-  let age = promptFor("What is the person's age?", chars);
-    // TODO: find the person using the age they entered
-}
-
 function searchByHeight(people) {
   let height = promptFor("What is the person's height IN INCHES?", chars);
   let filteredByHeight;
@@ -289,20 +285,26 @@ function searchByTraits (people) {
   } 
 }
 
-function splitBirthday (dob) {
-  dobArray = dob.split("/");
-  let month = dobArray[0];
-  let day = dobArray[1];
-  let year = dobArray[2];
+function splitBirthday (people) {
+  for (i=0; i < people.length; i++) {
+    let dobArray = people[i].dob.split("/");
+    let month = dobArray[0]-1;
+    let day = parseInt(dobArray[1]);
+    let year = parseInt(dobArray[2]);
+    let indexedDobArray = [month, day, year];
+    let personAge = calculateAge(indexedDobArray);
+    people[i].age = personAge;
+  }
 }
-splitBirthday(data.dob);
 
+function calculateAge (indexedDobArray) {
+  let today = new Date();
+  let age = today.getFullYear() - indexedDobArray[2];
 
-
-function calculateAge (splitBirthday, currentDate) {
-if (today.getMonth() < month || (today.getMonth() == month && today.getDate() < day)) {
-  age--;
-
+  if (today.getMonth() < indexedDobArray[0] || (today.getMonth() == indexedDobArray[0] && today.getDate() < indexedDobArray[1])) {
+    age--;
+  }
+  return age;
 }
 // find current date
 // let date = new Date();
@@ -311,8 +313,14 @@ if (today.getMonth() < month || (today.getMonth() == month && today.getDate() < 
 // let currentYear = date.getFullYear();
 // console.log(date);
 
-
 function searchByAge(people) {
   let age = promptFor("What is the person's age?", chars);
-    // TODO: find the person using the age they entered
+  console.log(people);
+  // filter calculateAge == age;{
+  //    send person to new array return true
+  // } else {
+  //      return false
 }
+
+
+    // TODO: find the person using the age they entered
