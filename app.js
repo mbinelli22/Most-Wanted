@@ -4,7 +4,7 @@ Build all of your functions for displaying and gathering information below (GUI)
 
 // app is the function called to start the entire application
 function app(people){
-  var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
+  var searchType = prompt("Do you know the name of the person you are looking for? Enter 'yes' or 'no'").toLowerCase();
   switch(searchType){
     case 'yes':
     searchByName(people);
@@ -13,13 +13,12 @@ function app(people){
     searchByTraits(people);
     break;
     default:
-    // app(people); // restart app
-    alert("Invalid entry. Please enter either 'yes' or 'no'");
-       // This still doesnt work. what if we made another case for when promptFor != yes || no? 
-    app(people); // restart app
+    alert("Invalid entry. Please enter either 'yes' or 'no'.");
+    app(people);
     break;
   }
 }
+
 
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
@@ -55,7 +54,7 @@ function mainMenu(person, people){
 }
 
 function searchByName(people){
- 
+
   let lastName = promptFor("What is the person's LAST name?", chars).toLowerCase();
 
   let filteredByLastName = people.filter(function (person) {
@@ -99,8 +98,8 @@ function promptFor(question, valid){
   do{
     var response = prompt(question).trim();
   } while(!response || !valid(response));
-  return response;
-}
+    return response;
+  }
 
 // helper function to pass into promptFor to validate yes/no answers
 function yesNo(input){
@@ -119,21 +118,61 @@ function chars(input){
 }
 
 
-// function findHeight() {
-//   var billyHeight = data[0].height[0];
 
-// }
-
+function getAge () {
+}
 
 
-    // TODO: find the person using the height they entered
-//     function inchesToFeet(v) {
-//       let feet = Math.floor(v/12);
-//       let inches = v%12;
-//       return feet + "'" + inches + "\"";
-//     }
-//     let inchesToFeetConverted = inchesToFeet(height);
-//     console.log(inchesToFeetConverted);
+// function runApp () {
+//   app(data);
+
+
+  // var id = (data[].id);
+  // var firstName = data[].firstName;
+  // var lastName = data[].lastName;
+  // var gender = data[].gender;
+  // var dob = data[].dob;
+  // var height = data[].height;
+  // var weight = data[].weight;
+  // var eyeColor = data[].eyeColor;
+  // var occupation = data[].occupation;
+  // var parents = data[].parents;
+  // var currentSpouse = data[].currentSpouse;
+
+
+app(data);
+
+// Object Constructor
+// function Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, occupation, parents, currentSpouse) {
+//   this.id = id;
+//   this.firstName = firstname;
+//   this.lastName = lastName;
+//   this.gender = gender;
+//   this.dob = dob;
+//   this.height = height;
+//   this.weight = weight;
+//   this.eyeColor = eyeColor;
+//   this.occupation = occupation;
+//   this.parents = parents;
+//   this.currentSpouse = currentSpouse;
+//   }
+  // this.age = function age(//current date - (data[x].dob, convert from string, adjust for zero indexing, convert to output to match date function) {
+// Person(id, firstName, lastName, gender, dob, height, weight, eyeColor, occupation, parents, currentSpouse);
+// console.log(people[0].gender);
+
+// find current date
+// let date = new Date();
+// let currentMonth = date.getMonth();
+// let currentDate = date.getDate();
+// let currentYear = date.getFullYear();
+// console.log(date);
+
+
+function searchByAge(people) {
+  let age = promptFor("What is the person's age?", chars);
+    // TODO: find the person using the age they entered
+}
+
 function searchByHeight(people) {
   let height = promptFor("What is the person's height IN INCHES?", chars);
   let filteredByHeight;
@@ -186,20 +225,38 @@ function searchByWeight(people) {
 // mainMenu(filteredPeople[0],people);
 
 
-function searchByOccupation(argument) {
+function searchByOccupation(filteredPeople) {
 
-    let occupation = promptFor("What is the person\'s occupation?", chars)
+    let filteredOcc = [];
 
-  // TODO: find the person using the occupation they entered
-  data.filter(function (el){
-    if (el= occupation){
-      return true;
-    }
-    else {
+    let occupation = promptFor("What is the person\'s occupation?", chars).toLowerCase();
+
+    let searchedOcc = filteredOcc.push
+
+    let filteredOccupations = data.filter (function (data) {
+    if (data.filter == occupation.toLowerCase()) {
+    return true;
+    } else {
       return false;
     }
+
   });
+  console.log("These are the people we found matching your search:" + filteredOcc);
 }
+
+ // let lastName = promptFor("What is the person's last name?", chars).toLowerCase();
+
+ // let filteredByLastName = people.filter(function (person) {
+ //    if (person.lastName.toLowerCase() == lastName) {
+ //      return true;
+ //    } else {
+ //      return false;
+ //    }
+ //  });
+ //  console.log(filteredByLastName);
+
+
+
 
 function searchByEyeColor(argument) {
 
