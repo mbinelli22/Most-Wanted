@@ -124,21 +124,7 @@ function chars(input){
 
 // }
 
-function getAge () {
-}
 
-// find current date
-// let date = new Date();
-// let currentMonth = date.getMonth();
-// let currentDate = date.getDate();
-// let currentYear = date.getFullYear();
-// console.log(date);
-
-
-function searchByAge(people) {
-  let age = promptFor("What is the person's age?", chars);
-    // TODO: find the person using the age they entered
-}
 
     // TODO: find the person using the height they entered
 //     function inchesToFeet(v) {
@@ -187,7 +173,7 @@ function searchByWeight(people) {
   // TODO: find the person using the weight they entered
   // let filteredPeople;
   // filteredPeople = searchByWeight(people);
-  
+
 // copied this from mike but doesnt work yet.
 // let newArray = people.filter(function (el) {
 //   if (el.weight == weight){
@@ -244,4 +230,30 @@ function searchByTraits (people) {
     searchByTraits();
     break;
   } 
+}
+
+// function splitBirthday (dob) {
+//   dobArray = dob.split("/");
+//   let month = dobArray[0];
+//   let day = dobArray[1];
+//   let year = dobArray[2];
+// }
+// splitBirthday(data.dob);
+
+// function currentDate (Date) {
+//   let currentDateArray = [Date.month, Date.day, Date.year];
+// }
+
+// function calculateAge (splitBirthday, currentDate)
+// // find current date
+// // let date = new Date();
+// // let currentMonth = date.getMonth();
+// // let currentDate = date.getDate();
+// // let currentYear = date.getFullYear();
+// // console.log(date);
+
+
+// function searchByAge(people) {
+//   let age = promptFor("What is the person's age?", chars);
+//     // TODO: find the person using the age they entered
 }
