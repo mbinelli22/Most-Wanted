@@ -20,6 +20,7 @@ function app(people){
   }
 } 
 
+
 function addAge (people) {
   for (i=0; i < people.length; i++) {
     let dobArray = people[i].dob.split("/");
@@ -40,39 +41,6 @@ function calculateAge (indexedDobArray) {
     age--;
   }
   return age;
-}
-
-// Menu function to call once you find who you are looking for
-function mainMenu(person, people){
-
-  /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. 
-  We need people in order to find descendants and other information that the user may want. */
-
-  if(!person){
-    alert("Could not find that individual.");
-    return app(people); // restart
-  }
-
-  var displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
-
-  switch(displayOption){
-    case "info":
-    // TODO: get person's info
-    break;
-    case "family":
-    // TODO: get person's family
-    break;
-    case "descendants":
-    // TODO: get person's descendants
-    break;
-    case "restart":
-    app(people); // restart
-    break;
-    case "quit":
-    return; // stop execution
-    default:
-    return mainMenu(person, people); // ask again
-  }
 }
 
 function searchByTraits (people) {
@@ -98,10 +66,63 @@ function searchByTraits (people) {
     searchByTraits();
     break;
   } 
+
 }
 
-function searchByName(people){
+// Menu function to call once you find who you are looking for
+function mainMenu(person, people){
+  /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. 
+  We need people in order to find descendants and other information that the user may want. */
 
+  if(!person){
+    alert("Could not find that individual.");
+    return app(people); // restart
+  }
+
+  var displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+
+  switch(displayOption){
+    case "info":
+    displayInfo();
+    break;
+    case "family":
+    displayFamily();
+    break;
+    case "descendants":
+    displayDecendants();
+    break;
+    case "restart":
+    app(people); 
+    break;
+    case "quit":
+    return; 
+    default:
+    return mainMenu(person, people); 
+  }
+}
+
+function displayInfo (person) {
+  let personInfo = "First Name: " + person.firstName + "\n";
+  personInfo += "Last Name: " + person.lastName + "\n";
+  personInfo += "Gender" + person.gender + "\n";
+  personInfo += "D.O.B." + person.dob + "\n";
+  personInfo += "Height" + person.height + "\n";
+  personInfo += "Weight" + person.weight + "\n";
+  personInfo += "Eye Color" + person.eyeColor + "\n";
+  personInfo += "Occupation" + person.occupation + "\n";
+  alert(personInfo);  
+}
+
+function displayFamily(person) {
+  // must use recursion:(
+  let familyInfo = ""
+}
+
+function displayDecendants(person) {
+// must use iteration
+}
+  
+function searchByName(people){
   let lastName = promptFor("What is the person's LAST name?", chars).toLowerCase();
 
   let filteredByLastName = people.filter(function (person) {
@@ -124,44 +145,14 @@ function searchByName(people){
   console.log(firstAndLastName);
 }
 
-// alerts a list of people
-function displayPeople(people){
-  alert(people.map(function(person){
-    return person.firstName + " " + person.lastName;
-  }).join("\n"));
-}
+function calculateAge (indexedDobArray) {
+  let today = new Date();
+  let age = today.getFullYear() - indexedDobArray[2];
 
-function displayPerson(person){
-  // print all of the information about a person:
-  // height, weight, age, name, occupation, eye color.
-  var personInfo = "First Name: " + person.firstName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
-  // TODO: finish getting the rest of the information to display
-  alert(personInfo);
-}
-
-// function that prompts and validates user input
-function promptFor(question, valid){
-  do{
-    var response = prompt(question).trim();
-  } while(!response || !valid(response));
-    return response;
+  if (today.getMonth() < indexedDobArray[0] || (today.getMonth() == indexedDobArray[0] && today.getDate() < indexedDobArray[1])) {
+    age--;
   }
-
-// helper function to pass into promptFor to validate yes/no answers
-function yesNo(input){
-  return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
-}
-
-// helper function to pass into promptFor to validate for the searchByTraits function
-function searchByFeature(input){
-  return input.toLowerCase() == "age" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "occupation" || input.toLowerCase() == "eye color";
-}
-
-// helper function to pass in as default promptFor validation
-function chars(input){
-
-  return true; // default validation only
+  return age;
 }
 
 function searchByAge(people) {
@@ -182,8 +173,6 @@ function searchByAge(people) {
   console.log(filteredByAge);
 }
 
-
-
 function searchByHeight(people) {
   let height = promptFor("What is the person's height IN INCHES?", chars);
   let filteredByHeight = people.filter(function (person) {
@@ -194,14 +183,16 @@ function searchByHeight(people) {
            
           return(filteredByHeight);
      });
-     function checkForExistence(filteredByHeight){
-              if (filteredByHeight.length == 0){
-              alert("No one in our database has that height. Please try another height, in inches only.");
-              searchByHeight(people);
-              }else{
-                console.log(filteredByHeight);
-              }
-            }
+     
+function checkForExistence(filteredByHeight){
+  if (filteredByHeight.length == 0){
+  alert("No one in our database has that height. Please try another height, in inches only.");
+  searchByHeight(people);
+  }
+  else{
+  console.log(filteredByHeight);
+  }
+   }
   checkForExistence(filteredByHeight);
 }  
 
@@ -211,14 +202,15 @@ function searchByOccupation(filteredPeople) {
     let occupation = promptFor("What is the person's occupation?", chars).toLowerCase();
     let searchedOcc = filteredOcc.push
     let filteredOccupations = data.filter (function (data) {
+
     if (data.filter == occupation.toLowerCase()) {
     return true;
     } else {
-      return false;
-    }
-  });
-  console.log("These are the people we found matching your search:" + filteredOcc);
+    return false;}
+    return filteredByOccupation;
+     });
 }
+   // console.log(filteredByOccupation);
 
 function searchByEyeColor(people) {
   let eyeColor = promptFor("What is the person's eye color?", chars);
@@ -235,7 +227,6 @@ function searchByEyeColor(people) {
 }
 
 function searchByWeight(people) {
-
   let weight = promptFor("What is the person's weight in pounds?", chars);
   let filteredByWeight;
   if (weight > 0) {
@@ -253,28 +244,17 @@ function searchByWeight(people) {
   console.log(filteredByWeight);
 }
 
-// mainMenu(filteredPeople[0],people);
-
-
-function searchByOccupation(filteredPeople) {
-
-    let filteredOcc = [];
-
-    let occupation = promptFor("What is the person\'s occupation?", chars).toLowerCase();
-
-    let searchedOcc = filteredOcc.push
-
-    let filteredOccupations = data.filter (function (data) {
-    if (data.filter == occupation.toLowerCase()) {
-    return true;
+function searchByEyeColor(people) {
+  let eyeColor = promptFor("What is the person\'s eye color?", chars);
+  let filteredByEyeColor = people.filter(function (person) {
+    if (person.eyeColor == eyeColor) {
+      return true;
     } else {
       return false;
     }
-
-  });
-  console.log("These are the people we found matching your search:" + filteredOcc);
-}
-
+     });  
+      console.log(filteredByEyeColor);
+    }
 
 // alerts a list of people
 function displayPeople(people){
