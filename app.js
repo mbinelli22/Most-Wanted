@@ -114,12 +114,16 @@ function displayInfo (person) {
 }
 
 function displayFamily(person) {
-  // must use recursion:(
-  let familyInfo = ""
+  let familyInfo = "Parents: " + findParents() + "\n";
+  familyInfo += "Siblings: " + findSiblings () + "\n";
+  familyInfo += "Spouse: " + findCurrentSpouse() + "\n";
+  familyInfo += "Offspring: " + findChildren() + "\n";
+ alert(familyInfo);
 }
 
+
 function displayDecendants(person) {
-// must use iteration
+  findDescendants();
 }
   
 function searchByName(people){
@@ -286,4 +290,66 @@ function searchByFeature(input){
 
 function chars(input){
   return true;
+}
+
+function findCurrentSpouse(people, person) {
+  let personSpouseID = person.currentSpouse;
+  console.log(personSpouseID);
+  let filterSpouse = people.filter(function (people)  {
+    if (personSpouseID == people.id) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+  console.log(filterSpouse);
+}
+
+
+
+// function findParents(people, person) {
+//   let personParentsID = person.parents;
+//   console.log(personParentsID);
+//   let filterParents = person.parents.filter(function (el) {
+//     for(i=0; i<people.length; i++) { // set up loop to go through each person's (el) parents array
+//       if (el == people[i].id) { // fix condition el[i].parents
+//         return true;
+//       } else {
+//         return false;
+//       }
+//     }
+//   });
+//   console.log(filterParents);
+// }
+
+// function findParents(people, person) {
+//   let personParents = []
+//   for (let i = 0; i < people.length; i++ ){
+//     for(let j=0; j<person.parents.length; j++) {
+//       if (people[i].id === person.parents[j]) {
+//       personParents.push(people[i]);
+//       }
+//     }
+//   }
+//   console.log(personParents);
+}
+
+function findChildren (people,person) {
+  for (i=0; i<people.length; i++) {
+    let childOf = people.filter(function (people) {
+      if (person.id == people[i].parents[j]) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
+}
+
+function findSiblings (people) {
+
+}
+
+function findDescendants (people) {
+
 }
