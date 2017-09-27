@@ -182,27 +182,32 @@ function searchByAge(people) {
   console.log(filteredByAge);
 }
 
+
+
 function searchByHeight(people) {
   let height = promptFor("What is the person's height IN INCHES?", chars);
-
-  function checkForNonExistence(filteredByHeight){
-            if (filteredByHeight.length = 0){
-              alert("No one in our database has that height. Please try another height, in inches only.");
-              searchByHeight(people);
-
-            let filteredByHeight = people.filter(function (person) {
-                 checkForNonExistence(filteredByHeight);
+  let filteredByHeight = people.filter(function (person) {
                 if (person.height == height) {
                return true;
               } else {
               return false;}
+           
+          return(filteredByHeight);
+     });
+     function checkForExistence(filteredByHeight){
+              if (filteredByHeight.length == 0){
+              alert("No one in our database has that height. Please try another height, in inches only.");
+              searchByHeight(people);
+              }else{
+                console.log(filteredByHeight);
+              }
+            }
+  checkForExistence(filteredByHeight);
+}  
 
-              return filteredByHeight;
-     })
-    }
-  }
-   console.log(filteredByHeight);
-};
+
+   
+
 
 function searchByOccupation(filteredPeople) {
 
