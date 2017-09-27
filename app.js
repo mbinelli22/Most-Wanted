@@ -114,10 +114,10 @@ function displayInfo (person) {
 }
 
 function displayFamily(person) {
-  let familyInfo = "Parents: " + findParents() + "\n";
-  familyInfo += "Siblings: " + findSiblings () + "\n";
-  familyInfo += "Spouse: " + findCurrentSpouse() + "\n";
-  familyInfo += "Offspring: " + findChildren() + "\n";
+  let familyInfo = "Parents: " + findParents(people, person) + "\n";
+  familyInfo += "Siblings: " + findSiblings (people, person) + "\n";
+  familyInfo += "Spouse: " + findCurrentSpouse(people, person) + "\n";
+  familyInfo += "Offspring: " + findChildren(people, person) + "\n";
  alert(familyInfo);
 }
 
@@ -322,33 +322,41 @@ function findCurrentSpouse(people, person) {
 //   console.log(filterParents);
 // }
 
-// function findParents(people, person) {
-//   let personParents = []
-//   for (let i = 0; i < people.length; i++ ){
-//     for(let j=0; j<person.parents.length; j++) {
-//       if (people[i].id === person.parents[j]) {
-//       personParents.push(people[i]);
-//       }
-//     }
-//   }
-//   console.log(personParents);
+function findParents(people, person) {
+  let personParents = []
+  for (let i = 0; i < people.length; i++ ) {
+    for(let j=0; j<person.parents.length; j++) {
+      if (people[i].id === person.parents[j]) {
+      personParents.push(people[i]);
+      }
+    }
+  }
+  console.log(personParents);
 }
 
 function findChildren (people,person) {
-  for (i=0; i<people.length; i++) {
-    let childOf = people.filter(function (people) {
-      if (person.id == people[i].parents[j]) {
-        return true;
-      } else {
-        return false;
+  
+    let children = [];
+    for (let i = 0; i < people.length; i++) {
+      for (let j=0; j<people[i].parents.length; j++) {
+        if (person.id == people[i].parents[j]) {
+          children.push(people[i]);
+        }
       }
-    });
-  }
+    }
+    console.log(children);
 }
 
-function findSiblings (people) {
-
+function findSiblings (people,person) {
+let parents = findParents(person);
+let children = findChildren(parents);
+console.log(children)
 }
+
+
+
+
+
 
 function findDescendants (people) {
 
