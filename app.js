@@ -4,7 +4,7 @@ Build all of your functions for displaying and gathering information below (GUI)
 
 // app is the function called to start the entire application
 function app(people){
-  splitBirthday(people);
+  addAge(people);
   var searchType = prompt("Do you know the name of the person you are looking for? Enter 'yes' or 'no'").toLowerCase();
   switch(searchType){
     case 'yes':
@@ -20,7 +20,7 @@ function app(people){
   }
 } 
 
-function splitBirthday (people) {
+function addAge (people) {
   for (i=0; i < people.length; i++) {
     let dobArray = people[i].dob.split("/");
     let month = dobArray[0]-1;
@@ -163,7 +163,7 @@ function searchByHeight(people) {
 function searchByOccupation(filteredPeople) {
 
     let filteredOcc = [];
-    let occupation = promptFor("What is the person\'s occupation?", chars).toLowerCase();
+    let occupation = promptFor("What is the person's occupation?", chars).toLowerCase();
     let searchedOcc = filteredOcc.push
     let filteredOccupations = data.filter (function (data) {
     if (data.filter == occupation.toLowerCase()) {
