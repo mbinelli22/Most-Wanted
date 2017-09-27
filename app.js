@@ -46,7 +46,7 @@ function searchByTraits (people) {
 }
 
 // Menu function to call once you find who you are looking for
-function mainMenu(person, people){
+function mainMenu(person, people, firstAndLastName){
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. 
   We need people in order to find descendants and other information that the user may want. */
 
@@ -59,13 +59,13 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
-    displayInfo();
+    displayInfo(person, people, firstAndLastName);
     break;
     case "family":
-    displayFamily();
+    displayFamily(person);
     break;
     case "descendants":
-    displayDecendants();
+    displayDecendants(person);
     break;
     case "restart":
     app(people); 
@@ -77,15 +77,15 @@ function mainMenu(person, people){
   }
 }
 
-function displayInfo (person) {
+function displayInfo (person ) {
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
-  personInfo += "Gender" + person.gender + "\n";
-  personInfo += "D.O.B." + person.dob + "\n";
-  personInfo += "Height" + person.height + "\n";
-  personInfo += "Weight" + person.weight + "\n";
-  personInfo += "Eye Color" + person.eyeColor + "\n";
-  personInfo += "Occupation" + person.occupation + "\n";
+  personInfo += "Gender: " + person.gender + "\n";
+  personInfo += "D.O.B.: " + person.dob + "\n";
+  personInfo += "Height: " + person.height + "\n";
+  personInfo += "Weight: " + person.weight + "\n";
+  personInfo += "Eye Color: " + person.eyeColor + "\n";
+  personInfo += "Occupation: " + person.occupation + "\n";
   alert(personInfo);  
 }
 
@@ -119,6 +119,8 @@ function searchByName(people){
     }
   });
   console.log(firstAndLastName);
+  mainMenu(firstAndLastName[0], people, firstAndLastName[0].firstName + " " + firstAndLastName[0].lastName);
+  return firstAndLastName;
 }
 
 function calculateAge (indexedDobArray) {
@@ -147,6 +149,7 @@ function searchByAge(people) {
     return searchByAge(people);
   }
   console.log(filteredByAge);
+  mainMenu(filteredByAge);
 }
 
 function searchByHeight(people) {
@@ -184,7 +187,7 @@ function searchByOccupation(filteredPeople) {
     return filteredByOccupation;
      });
     }
-  }
+  
    // console.log(filteredByOccupation);
 
 function searchByWeight(people) {
@@ -281,4 +284,3 @@ function chars(input){
 
 // run app~~~~~~~~~~
 app(data);
-mainMenu(data);
