@@ -70,7 +70,7 @@ function searchByTraits (people) {
 }
 
 // Menu function to call once you find who you are looking for
-function mainMenu(person, people, firstAndLastName){
+function mainMenu(person, people, firstAndLastName, filteredByAge, filteredByHeight, filteredOccupations){
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. 
   We need people in order to find descendants and other information that the user may want. */
 
@@ -83,7 +83,7 @@ function mainMenu(person, people, firstAndLastName){
 
   switch(displayOption){
     case "info":
-    displayInfo(person, people, firstAndLastName);
+    displayInfo(person, people, firstAndLastName, filteredByAge, filteredByHeight, filteredOccupations);
     break;
     case "family":
     displayFamily(person);
@@ -110,7 +110,8 @@ function displayInfo (person ) {
   personInfo += "Weight: " + person.weight + "\n";
   personInfo += "Eye Color: " + person.eyeColor + "\n";
   personInfo += "Occupation: " + person.occupation + "\n";
-  alert(personInfo);  
+  alert(personInfo);
+  alert("Thank you for using our program. To search again, close this and reload the page.");  
 }
 
 function displayFamily(person) {
@@ -173,18 +174,18 @@ function searchByAge(people) {
     return searchByAge(people);
   }
   console.log(filteredByAge);
-  mainMenu(filteredByAge);
+  mainMenu(filteredByAge[0], people, filteredByAge[0].firstName + " " + filteredByAge[0].lastName);
+  return filteredByAge;
 }
 
 function searchByHeight(people) {
   let height = promptFor("What is the person's height IN INCHES?", chars);
   let filteredByHeight = people.filter(function (person) {
-                if (person.height == height) {
-               return true;
-              } else {
-              return false;}
-           
-          return(filteredByHeight);
+    if (person.height == height) {
+    return true;
+    } else {
+    return false;}
+    return(filteredByHeight);
      });
      
 function checkForExistence(filteredByHeight){
@@ -194,6 +195,7 @@ function checkForExistence(filteredByHeight){
   }
   else{
   console.log(filteredByHeight);
+  mainMenu(filteredByHeight[0], people, filteredByHeight[0].firstName + " " + filteredByHeight[0].lastName);
   }
    }
   checkForExistence(filteredByHeight);
@@ -210,11 +212,9 @@ function searchByOccupation(filteredPeople) {
     return true;
     } else {
     return false;}
-    return filteredByOccupation;
+    return filteredOccupations;
      });
     }
-
-   // console.log(filteredByOccupation);
 
 function searchByEyeColor(people) {
   let eyeColor = promptFor("What is the person's eye color?", chars);
