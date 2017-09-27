@@ -1,8 +1,4 @@
-/*
-Build all of your functions for displaying and gathering information below (GUI).
-*/
 
-// app is the function called to start the entire application
 function app(people){
   addAge(people);
   var searchType = prompt("Do you know the name of the person you are looking for? Enter 'yes' or 'no'").toLowerCase();
@@ -114,9 +110,13 @@ function displayInfo (person ) {
 }
 
 function displayFamily(person) {
-  // must use recursion:(
-  let familyInfo = ""
+  let familyInfo = "Parents: " + findParents(people, person) + "\n";
+  familyInfo += "Siblings: " + findSiblings (people, person) + "\n";
+  familyInfo += "Spouse: " + findCurrentSpouse(people, person) + "\n";
+  familyInfo += "Offspring: " + findChildren(people, person) + "\n";
+ alert(familyInfo);
 }
+
 
 function displayDescendants(person) {
 // must use iteration
@@ -248,8 +248,6 @@ function searchByWeight(people) {
   checkForExistence(filteredByWeight);
 }
 
-// mainMenu(filteredPeople[0],people);
-
 
 function searchByEyeColor(people) {
  let eyeColor = promptFor("What is the person's eye color?", chars);
@@ -303,4 +301,53 @@ function searchByFeature(input){
 
 function chars(input){
   return true;
+
+}
+
+function findCurrentSpouse(people, person) {
+  let personSpouseID = person.currentSpouse;
+  console.log(personSpouseID);
+  let filterSpouse = people.filter(function (people)  {
+    if (personSpouseID == people.id) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+  console.log(filterSpouse);
+}
+
+function findParents(people, person) {
+  let personParents = []
+  for (let i = 0; i < people.length; i++ ) {
+    for(let j=0; j<person.parents.length; j++) {
+      if (people[i].id === person.parents[j]) {
+      personParents.push(people[i]);
+      }
+    }
+  }
+  console.log(personParents);
+}
+
+function findChildren (people,person) {
+  
+    let children = [];
+    for (let i = 0; i < people.length; i++) {
+      for (let j=0; j<people[i].parents.length; j++) {
+        if (person.id == people[i].parents[j]) {
+          children.push(people[i]);
+        }
+      }
+    }
+    console.log(children);
+}
+
+function findSiblings (people,person) {
+let parents = findParents(person);
+let children = findChildren(parents);
+console.log(children)
+}
+
+function findDescendants (people) {
+
 }
