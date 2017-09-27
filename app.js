@@ -205,10 +205,6 @@ function searchByHeight(people) {
   checkForExistence(filteredByHeight);
 }  
 
-
-   
-
-
 function searchByOccupation(filteredPeople) {
 
     let filteredOcc = [];
