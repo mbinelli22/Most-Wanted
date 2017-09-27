@@ -164,14 +164,6 @@ function chars(input){
   return true; // default validation only
 }
 
-
-
-function getAge () {
-}
-
-
-app(data);
-
 function searchByAge(people) {
   let age = promptFor("What is the person's age?", chars);
   let filteredByAge;
@@ -227,6 +219,20 @@ function searchByOccupation(filteredPeople) {
   console.log("These are the people we found matching your search:" + filteredOcc);
 }
 
+function searchByEyeColor(people) {
+  let eyeColor = promptFor("What is the person's eye color?", chars);
+  let filteredByEyeColor;
+
+  filteredByEyeColor = people.filter(function (person) {
+    if (person.eyeColor == eyeColor) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+  console.log(filteredByEyeColor);
+}
+
 function searchByWeight(people) {
 
   let weight = promptFor("What is the person's weight in pounds?", chars);
@@ -268,21 +274,6 @@ function searchByOccupation(filteredPeople) {
   console.log("These are the people we found matching your search:" + filteredOcc);
 }
 
-function searchByEyeColor(people) {
-
-    let eyeColor = promptFor("What is the person\'s eye color?", chars);
-    
-            let filteredByColor = people.filter(function (person) {
-                if (person.eyeColor == eyeColor) {
-               return true;
-              } else {
-              return false;
-              // return filteredByEyeColor;
-        }
-        console.log(filteredByEyeColor);
-     });  
-    }
-
 
 // alerts a list of people
 function displayPeople(people){
@@ -315,4 +306,3 @@ function searchByFeature(input){
 function chars(input){
   return true;
 }
-
