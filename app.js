@@ -124,6 +124,54 @@ function searchByName(people){
   console.log(firstAndLastName);
 }
 
+// alerts a list of people
+function displayPeople(people){
+  alert(people.map(function(person){
+    return person.firstName + " " + person.lastName;
+  }).join("\n"));
+}
+
+function displayPerson(person){
+  // print all of the information about a person:
+  // height, weight, age, name, occupation, eye color.
+  var personInfo = "First Name: " + person.firstName + "\n";
+  personInfo += "Last Name: " + person.lastName + "\n";
+  // TODO: finish getting the rest of the information to display
+  alert(personInfo);
+}
+
+// function that prompts and validates user input
+function promptFor(question, valid){
+  do{
+    var response = prompt(question).trim();
+  } while(!response || !valid(response));
+    return response;
+  }
+
+// helper function to pass into promptFor to validate yes/no answers
+function yesNo(input){
+  return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
+}
+
+// helper function to pass into promptFor to validate for the searchByTraits function
+function searchByFeature(input){
+  return input.toLowerCase() == "age" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "occupation" || input.toLowerCase() == "eye color";
+}
+
+// helper function to pass in as default promptFor validation
+function chars(input){
+
+  return true; // default validation only
+}
+
+
+
+function getAge () {
+}
+
+
+app(data);
+
 function searchByAge(people) {
   let age = promptFor("What is the person's age?", chars);
   let filteredByAge;
@@ -144,21 +192,25 @@ function searchByAge(people) {
 
 function searchByHeight(people) {
   let height = promptFor("What is the person's height IN INCHES?", chars);
-  let filteredByHeight;
-  if (height > 0) {
-  filteredByHeight = people.filter(function (person) {
-        if (person.height == height) {
-          return true;
-        } else {
-          return false;
-        }
-    });
-  } else {
-    alert("Not a valid height.  Please enter height IN INCHES.");
-    return searchByHeight(people);
+
+  function checkForNonExistence(filteredByHeight){
+            if (filteredByHeight.length = 0){
+              alert("No one in our database has that height. Please try another height, in inches only.");
+              searchByHeight(people);
+
+            let filteredByHeight = people.filter(function (person) {
+                 checkForNonExistence(filteredByHeight);
+                if (person.height == height) {
+               return true;
+              } else {
+              return false;}
+
+              return filteredByHeight;
+     })
+    }
   }
-  console.log(filteredByHeight);
-}
+   console.log(filteredByHeight);
+};
 
 function searchByOccupation(filteredPeople) {
 
@@ -194,11 +246,43 @@ function searchByWeight(people) {
   console.log(filteredByWeight);
 }
 
-function searchByEyeColor(argument) {
+// mainMenu(filteredPeople[0],people);
+
+
+function searchByOccupation(filteredPeople) {
+
+    let filteredOcc = [];
+
+    let occupation = promptFor("What is the person\'s occupation?", chars).toLowerCase();
+
+    let searchedOcc = filteredOcc.push
+
+    let filteredOccupations = data.filter (function (data) {
+    if (data.filter == occupation.toLowerCase()) {
+    return true;
+    } else {
+      return false;
+    }
+
+  });
+  console.log("These are the people we found matching your search:" + filteredOcc);
+}
+
+function searchByEyeColor(people) {
 
     let eyeColor = promptFor("What is the person\'s eye color?", chars);
-       // TODO: find the person using the eye color they entered
-  }
+    
+            let filteredByColor = people.filter(function (person) {
+                if (person.eyeColor == eyeColor) {
+               return true;
+              } else {
+              return false;
+              // return filteredByEyeColor;
+        }
+        console.log(filteredByEyeColor);
+     });  
+    }
+
 
 // alerts a list of people
 function displayPeople(people){
@@ -231,3 +315,4 @@ function searchByFeature(input){
 function chars(input){
   return true;
 }
+
