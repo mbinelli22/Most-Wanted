@@ -121,7 +121,6 @@ function searchByName(people){
   console.log(firstAndLastName);
 }
 
-
 function calculateAge (indexedDobArray) {
   let today = new Date();
   let age = today.getFullYear() - indexedDobArray[2];
@@ -131,10 +130,6 @@ function calculateAge (indexedDobArray) {
   }
   return age;
 }
-
-// function searchByHeight(people) {
-//   let height = promptFor("What is the person's height IN INCHES?", chars);
-// }
 
 function searchByAge(people) {
   let age = promptFor("What is the person's age?", chars);
@@ -154,21 +149,43 @@ function searchByAge(people) {
   console.log(filteredByAge);
 }
 
-function checkForNonExistence(filteredByHeight){
-  if (filteredByHeight.length = 0){
-    alert("No one in our database has that height. Please try another height, in inches only.");
-    searchByHeight(people);
+function searchByHeight(people) {
+  let height = promptFor("What is the person's height IN INCHES?", chars);
   let filteredByHeight = people.filter(function (person) {
-    checkForNonExistence(filteredByHeight);
-    if (person.height == height) {
+                if (person.height == height) {
+               return true;
+              } else {
+              return false;}
+           
+          return(filteredByHeight);
+     });
+     
+function checkForExistence(filteredByHeight){
+  if (filteredByHeight.length == 0){
+  alert("No one in our database has that height. Please try another height, in inches only.");
+  searchByHeight(people);
+  }
+  else{
+  console.log(filteredByHeight);
+  }
+   }
+  checkForExistence(filteredByHeight);
+}  
+
+function searchByOccupation(filteredPeople) {
+  let filteredOcc = [];
+  let occupation = promptFor("What is the person\'s occupation?", chars).toLowerCase();
+  let searchedOcc = filteredOcc.push
+  let filteredOccupations = data.filter (function (data) {
+    if (data.filter == occupation.toLowerCase()) {
     return true;
     } else {
     return false;}
-    return filteredByHeight;
+    return filteredByOccupation;
      });
     }
   }
-   // console.log(filteredByHeight);
+   // console.log(filteredByOccupation);
 
 function searchByWeight(people) {
   let weight = promptFor("What is the person's weight in pounds?", chars);
