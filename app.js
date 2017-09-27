@@ -174,23 +174,24 @@ app(data);
 
 function searchByAge(people) {
   let age = promptFor("What is the person's age?", chars);
-  let filteredByAge;
-  if (age > 0) {
-  filteredByAge = people.filter(function (person) {
+  let filteredByAge = people.filter(function (person) {
         if (person.age == age) {
           return true;
         } else {
           return false;
         }
-    });
-  } else {
-    alert("Not a valid age.  Please enter person's age.");
-    return searchByAge(people);
-  }
-  console.log(filteredByAge);
+          return(filteredByAge);
+     });
+     function checkForExistence(filteredByAge){
+              if (filteredByAge.length == 0){
+              alert("No one in our database has that age. Please try another age.");
+              searchByAge(people);
+              }else{
+                console.log(filteredByAge);
+              }
+            }
+  checkForExistence(filteredByAge);
 }
-
-
 
 function searchByHeight(people) {
   let height = promptFor("What is the person's height IN INCHES?", chars);
@@ -213,80 +214,71 @@ function searchByHeight(people) {
   checkForExistence(filteredByHeight);
 }  
 
-
-   
-
-
-function searchByOccupation(filteredPeople) {
-
-    let filteredOcc = [];
-    let occupation = promptFor("What is the person\'s occupation?", chars).toLowerCase();
-    let searchedOcc = filteredOcc.push
-    let filteredOccupations = data.filter (function (data) {
-    if (data.filter == occupation.toLowerCase()) {
-    return true;
-    } else {
-      return false;
-    }
-  });
-  console.log("These are the people we found matching your search:" + filteredOcc);
+function searchByOccupation(people) {
+  let occupation = promptFor("What is the person's occupation?", chars);
+  let filteredByOccupation = people.filter(function (person) {
+        if (person.occupation == occupation) {
+          return true;
+        } else {
+          return false;
+        }
+          return(filteredByOccupation);
+     });
+     function checkForExistence(filteredByOccupation){
+              if (filteredByOccupation.length == 0){
+              alert("No one in our database is employed thus. Please try another occupation.");
+              searchByOccupation(people);
+              }else{
+                console.log(filteredByOccupation);
+              }
+            }
+  checkForExistence(filteredByOccupation);
 }
 
 function searchByWeight(people) {
-
-  let weight = promptFor("What is the person's weight in pounds?", chars);
-  let filteredByWeight;
-  if (weight > 0) {
-    filteredByWeight = people.filter(function (person) {
-      if (person.weight == weight) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-  } else {
-    alert("Not a valid weight.  Please enter the person's weight IN POUNDS.")
-    return searchByWeight(people);
-  }
-  console.log(filteredByWeight);
+  let weight = promptFor("What is the person's weight IN POUNDS?", chars);
+  let filteredByWeight = people.filter(function (person) {
+                if (person.weight == weight) {
+               return true;
+              } else {
+              return false;}
+           
+          return(filteredByWeight);
+     });
+     function checkForExistence(filteredByWeight){
+              if (filteredByWeight.length == 0){
+              alert("No one in our database has that weight. Please try another weight, in pounds only.");
+              searchByWeight(people);
+              }else{
+                console.log(filteredByWeight);
+              }
+            }
+  checkForExistence(filteredByWeight);
 }
 
 // mainMenu(filteredPeople[0],people);
 
 
-function searchByOccupation(filteredPeople) {
-
-    let filteredOcc = [];
-
-    let occupation = promptFor("What is the person\'s occupation?", chars).toLowerCase();
-
-    let searchedOcc = filteredOcc.push
-
-    let filteredOccupations = data.filter (function (data) {
-    if (data.filter == occupation.toLowerCase()) {
-    return true;
-    } else {
-      return false;
-    }
-
-  });
-  console.log("These are the people we found matching your search:" + filteredOcc);
-}
-
 function searchByEyeColor(people) {
-
-    let eyeColor = promptFor("What is the person\'s eye color?", chars);
-    
-            let filteredByColor = people.filter(function (person) {
+ let eyeColor = promptFor("What is the person's eye color?", chars);
+  let filteredByColor = people.filter(function (person) {
                 if (person.eyeColor == eyeColor) {
                return true;
               } else {
-              return false;
-              // return filteredByEyeColor;
-        }
-        console.log(filteredByEyeColor);
-     });  
-    }
+              return false;}
+           
+          return(filteredByColor);
+     });
+     function checkForExistence(filteredByColor){
+              if (filteredByColor.length == 0){
+              alert("No one in our database has that eye color. Please try another color.");
+              searchByEyeColor(people);
+              }else{
+                console.log(filteredByColor);
+              }
+            }
+  checkForExistence(filteredByColor);
+}
 
 
 // alerts a list of people
