@@ -20,6 +20,29 @@ function app(people){
   }
 } 
 
+
+function addAge (people) {
+  for (i=0; i < people.length; i++) {
+    let dobArray = people[i].dob.split("/");
+    let month = dobArray[0]-1;
+    let day = parseInt(dobArray[1]);
+    let year = parseInt(dobArray[2]);
+    let indexedDobArray = [month, day, year];
+    let personAge = calculateAge(indexedDobArray);
+    people[i].age = personAge;
+  }
+}
+
+function calculateAge (indexedDobArray) {
+  let today = new Date();
+  let age = today.getFullYear() - indexedDobArray[2];
+
+  if (today.getMonth() < indexedDobArray[0] || (today.getMonth() == indexedDobArray[0] && today.getDate() < indexedDobArray[1])) {
+    age--;
+  }
+  return age;
+}
+
 function searchByTraits (people) {
   let traitType = promptFor("Enter the type of trait you want to search for. Enter 'age', 'height', 'weight', 'occupation' or 'eye color'", searchByFeature).toLowerCase();
   switch (traitType) {
@@ -43,6 +66,7 @@ function searchByTraits (people) {
     searchByTraits();
     break;
   } 
+
 }
 
 // Menu function to call once you find who you are looking for
@@ -176,10 +200,12 @@ function checkForExistence(filteredByHeight){
 }  
 
 function searchByOccupation(filteredPeople) {
-  let filteredOcc = [];
-  let occupation = promptFor("What is the person\'s occupation?", chars).toLowerCase();
-  let searchedOcc = filteredOcc.push
-  let filteredOccupations = data.filter (function (data) {
+
+    let filteredOcc = [];
+    let occupation = promptFor("What is the person's occupation?", chars).toLowerCase();
+    let searchedOcc = filteredOcc.push
+    let filteredOccupations = data.filter (function (data) {
+
     if (data.filter == occupation.toLowerCase()) {
     return true;
     } else {
@@ -187,8 +213,22 @@ function searchByOccupation(filteredPeople) {
     return filteredByOccupation;
      });
     }
-  
+
    // console.log(filteredByOccupation);
+
+function searchByEyeColor(people) {
+  let eyeColor = promptFor("What is the person's eye color?", chars);
+  let filteredByEyeColor;
+
+  filteredByEyeColor = people.filter(function (person) {
+    if (person.eyeColor == eyeColor) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+  console.log(filteredByEyeColor);
+}
 
 function searchByWeight(people) {
   let weight = promptFor("What is the person's weight in pounds?", chars);
@@ -208,47 +248,17 @@ function searchByWeight(people) {
   console.log(filteredByWeight);
 }
 
-// function searchByOccupation(filteredPeople) {
-//   let occupation = promptFor("What is the occupation of the person you are searching for?", chars).toLowerCase();
-//   let filteredByOccupation;
-//     filteredByOccupation = people.filter(function (person) {
-//       if (person.occupation == occupation) {
-//       return true;
-//       } 
-//       else {
-//       return false;
-//       }
-//     }); 
-//      else {
-//      return searchByOccupation(people);
-//   }
-//   console.log(filteredByOccupation);
-// }
-
 function searchByEyeColor(people) {
   let eyeColor = promptFor("What is the person\'s eye color?", chars);
   let filteredByEyeColor = people.filter(function (person) {
     if (person.eyeColor == eyeColor) {
-    return true;
-    }
-    else {
-    return false;
+      return true;
+    } else {
+      return false;
     }
      });  
       console.log(filteredByEyeColor);
     }
-
-function addAge (people) {
-  for (i=0; i < people.length; i++) {
-    let dobArray = people[i].dob.split("/");
-    let month = dobArray[0]-1;
-    let day = parseInt(dobArray[1]);
-    let year = parseInt(dobArray[2]);
-    let indexedDobArray = [month, day, year];
-    let personAge = calculateAge(indexedDobArray);
-    people[i].age = personAge;
-  }
-}
 
 // alerts a list of people
 function displayPeople(people){
@@ -284,3 +294,4 @@ function chars(input){
 
 // run app~~~~~~~~~~
 app(data);
+
