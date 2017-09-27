@@ -20,6 +20,29 @@ function app(people){
   }
 } 
 
+
+function addAge (people) {
+  for (i=0; i < people.length; i++) {
+    let dobArray = people[i].dob.split("/");
+    let month = dobArray[0]-1;
+    let day = parseInt(dobArray[1]);
+    let year = parseInt(dobArray[2]);
+    let indexedDobArray = [month, day, year];
+    let personAge = calculateAge(indexedDobArray);
+    people[i].age = personAge;
+  }
+}
+
+function calculateAge (indexedDobArray) {
+  let today = new Date();
+  let age = today.getFullYear() - indexedDobArray[2];
+
+  if (today.getMonth() < indexedDobArray[0] || (today.getMonth() == indexedDobArray[0] && today.getDate() < indexedDobArray[1])) {
+    age--;
+  }
+  return age;
+}
+
 function searchByTraits (people) {
   let traitType = promptFor("Enter the type of trait you want to search for. Enter 'age', 'height', 'weight', 'occupation' or 'eye color'", searchByFeature).toLowerCase();
   switch (traitType) {
@@ -43,10 +66,11 @@ function searchByTraits (people) {
     searchByTraits();
     break;
   } 
+
 }
 
 // Menu function to call once you find who you are looking for
-function mainMenu(person, people){
+function mainMenu(person, people, firstAndLastName){
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. 
   We need people in order to find descendants and other information that the user may want. */
 
@@ -59,13 +83,13 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
-    displayInfo();
+    displayInfo(person, people, firstAndLastName);
     break;
     case "family":
-    displayFamily();
+    displayFamily(person);
     break;
     case "descendants":
-    displayDecendants();
+    displayDecendants(person);
     break;
     case "restart":
     app(people); 
@@ -77,15 +101,15 @@ function mainMenu(person, people){
   }
 }
 
-function displayInfo (person) {
+function displayInfo (person ) {
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
-  personInfo += "Gender" + person.gender + "\n";
-  personInfo += "D.O.B." + person.dob + "\n";
-  personInfo += "Height" + person.height + "\n";
-  personInfo += "Weight" + person.weight + "\n";
-  personInfo += "Eye Color" + person.eyeColor + "\n";
-  personInfo += "Occupation" + person.occupation + "\n";
+  personInfo += "Gender: " + person.gender + "\n";
+  personInfo += "D.O.B.: " + person.dob + "\n";
+  personInfo += "Height: " + person.height + "\n";
+  personInfo += "Weight: " + person.weight + "\n";
+  personInfo += "Eye Color: " + person.eyeColor + "\n";
+  personInfo += "Occupation: " + person.occupation + "\n";
   alert(personInfo);  
 }
 
@@ -120,6 +144,8 @@ function searchByName(people){
     }
   });
   console.log(firstAndLastName);
+  mainMenu(firstAndLastName[0], people, firstAndLastName[0].firstName + " " + firstAndLastName[0].lastName);
+  return firstAndLastName;
 }
 
 function calculateAge (indexedDobArray) {
@@ -151,6 +177,9 @@ function searchByAge(people) {
               }
             }
   checkForExistence(filteredByAge);
+
+  mainMenu(filteredByAge);
+
 }
 
 function searchByHeight(people) {
@@ -176,6 +205,7 @@ function checkForExistence(filteredByHeight){
   checkForExistence(filteredByHeight);
 }  
 
+
 function searchByOccupation(people) {
   let occupation = promptFor("What is the person's occupation?", chars);
   let filteredByOccupation = people.filter(function (person) {
@@ -195,6 +225,21 @@ function searchByOccupation(people) {
               }
             }
   checkForExistence(filteredByOccupation);
+}
+
+
+function searchByEyeColor(people) {
+  let eyeColor = promptFor("What is the person's eye color?", chars);
+  let filteredByEyeColor;
+
+  filteredByEyeColor = people.filter(function (person) {
+    if (person.eyeColor == eyeColor) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+  console.log(filteredByEyeColor);
 }
 
 function searchByWeight(people) {
@@ -243,18 +288,6 @@ function searchByEyeColor(people) {
 }
 
 
-function addAge (people) {
-  for (i=0; i < people.length; i++) {
-    let dobArray = people[i].dob.split("/");
-    let month = dobArray[0]-1;
-    let day = parseInt(dobArray[1]);
-    let year = parseInt(dobArray[2]);
-    let indexedDobArray = [month, day, year];
-    let personAge = calculateAge(indexedDobArray);
-    people[i].age = personAge;
-  }
-}
-
 // alerts a list of people
 function displayPeople(people){
   alert(people.map(function(person){
@@ -289,4 +322,4 @@ function chars(input){
 
 // run app~~~~~~~~~~
 app(data);
-mainMenu(data);
+
