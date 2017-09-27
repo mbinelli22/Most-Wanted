@@ -227,21 +227,6 @@ function searchByOccupation(people) {
   checkForExistence(filteredByOccupation);
 }
 
-
-function searchByEyeColor(people) {
-  let eyeColor = promptFor("What is the person's eye color?", chars);
-  let filteredByEyeColor;
-
-  filteredByEyeColor = people.filter(function (person) {
-    if (person.eyeColor == eyeColor) {
-      return true;
-    } else {
-      return false;
-    }
-  });
-  console.log(filteredByEyeColor);
-}
-
 function searchByWeight(people) {
   let weight = promptFor("What is the person's weight IN POUNDS?", chars);
   let filteredByWeight = people.filter(function (person) {
@@ -319,7 +304,3 @@ function searchByFeature(input){
 function chars(input){
   return true;
 }
-
-// run app~~~~~~~~~~
-app(data);
-
