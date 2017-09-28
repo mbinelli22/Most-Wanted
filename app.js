@@ -102,7 +102,8 @@ function displayInfo (person ) {
   personInfo += "Weight: " + person.weight + "\n";
   personInfo += "Eye Color: " + person.eyeColor + "\n";
   personInfo += "Occupation: " + person.occupation + "\n";
-  alert(personInfo);  
+  alert(personInfo);
+  alert("Thank you for using our program. To search again, close this and click the start searching button again."); 
 }
 
 function displayFamily(people, person) {
@@ -302,12 +303,27 @@ function findParents(people, person,) {
   return parentNames;
 }
 
+function findChildrenArray (people,person) {
+  let children = []
+  // let childrenNames = "";
+  for (let i = 0; i < people.length; i++) {
+    for (let j=0; j<people[i].parents.length; j++) {
+      if (person.id == people[i].parents[j]) {
+        children.push(people[i]);
+        //childrenNames += people[i].firstName + " " + people[i].lastName + ", ";
+      }
+    }
+  }
+  return children;
+  //return childrenNames;
+}
+
 function findChildren (people,person) {
   let childrenNames = "";
   for (let i = 0; i < people.length; i++) {
     for (let j=0; j<people[i].parents.length; j++) {
       if (person.id == people[i].parents[j]) {
-       childrenNames += people[i].firstName + " " + people[i].lastName + ", ";
+        childrenNames += people[i].firstName + " " + people[i].lastName + ", ";
       }
     }
   }
@@ -321,17 +337,10 @@ function findSiblings (people,person) {
 }
 
 function findDescendants (people, person) {
-  
-// .concat()
-  for (let i = 0; i < people.length; i++) {
-
-    for (let j=0; j<people[i].parents.length; j++) {
-      let descendants = [];
-      if (person.id == people[i].parents[j]) {
-       descendants.push(people[i]);
-      }
-    }
+let  descendants = findChildrenArray(people, person);
+  for (let i=0; i<descendants.length; i++) {
+    descendants = descendants.concat(findDescendants(people, descendants[i]));
   }
-  findDescendants(people, descendants);
   console.log(descendants);
+  return descendants;
 }
