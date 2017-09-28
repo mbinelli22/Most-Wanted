@@ -15,7 +15,6 @@ function app(people){
   }
 } 
 
-
 function addAge (people) {
   for (i=0; i < people.length; i++) {
     let dobArray = people[i].dob.split("/");
@@ -79,10 +78,10 @@ function mainMenu(person, people, firstAndLastName){
     displayInfo(person, people, firstAndLastName);
     break;
     case "family":
-    displayFamily(person);
+    displayFamily(people, person);
     break;
     case "descendants":
-    displayDecendants(person);
+    findDescendants(people,person);
     break;
     case "restart":
     app(people); 
@@ -114,15 +113,12 @@ function displayFamily(people, person) {
  alert(familyInfo);
 }
 
-
 function displayDescendants(person) {
 // must use iteration
 }
   
 function searchByName(people){
-
   let lastName = promptFor("What is the person's LAST name?", chars).toLowerCase();
-
   let filteredByLastName = people.filter(function (person) {
     if (person.lastName.toLowerCase() == lastName) {
       return true;
@@ -143,58 +139,46 @@ function searchByName(people){
   return firstAndLastName;
 }
 
-function calculateAge (indexedDobArray) {
-  let today = new Date();
-  let age = today.getFullYear() - indexedDobArray[2];
-
-  if (today.getMonth() < indexedDobArray[0] || (today.getMonth() == indexedDobArray[0] && today.getDate() < indexedDobArray[1])) {
-    age--;
-  }
-  return age;
-}
-
 function searchByAge(people) {
   let age = promptFor("What is the person's age?", chars);
   let filteredByAge = people.filter(function (person) {
-        if (person.age == age) {
-          return true;
-        } else {
-          return false;
-        }
-          return(filteredByAge);
-     });
-     function checkForExistence(filteredByAge){
-              if (filteredByAge.length == 0){
-              alert("No one in our database has that age. Please try another age.");
-              searchByAge(people);
-              }else{
-                console.log(filteredByAge);
-              }
-            }
+    if (person.age == age) {
+      return true;
+    } else {
+      return false;
+    }
+      return(filteredByAge);
+  });
+  function checkForExistence(filteredByAge){
+    if (filteredByAge.length == 0){
+      alert("No one in our database has that age. Please try another age.");
+      searchByAge(people);
+    }else{
+      console.log(filteredByAge);
+    }
+  }
   checkForExistence(filteredByAge);
-
-  mainMenu(filteredByAge);
+  mainMenu(filteredByAge); 
 }
 
 function searchByHeight(people) {
   let height = promptFor("What is the person's height IN INCHES?", chars);
   let filteredByHeight = people.filter(function (person) {
     if (person.height == height) {
-       return true;
+      return true;
     } else {
       return false;}
       return(filteredByHeight);
   }); 
   function checkForExistence(filteredByHeight){
     if (filteredByHeight.length == 0){
-    alert("No one in our database has that height. Please try another height, in inches only.");
-    searchByHeight(people);
-    }
-    else{
-    console.log(filteredByHeight);
+      alert("No one in our database has that height. Please try another height, in inches only.");
+      searchByHeight(people);
+    } else {
+      console.log(filteredByHeight);
     }
   }
-    checkForExistence(filteredByHeight);
+  checkForExistence(filteredByHeight);
 }  
 
 
@@ -213,7 +197,6 @@ function searchByOccupation(people) {
       alert("No one in our database is employed thus. Please try another occupation.");
       searchByOccupation(people);
     }else{
-        console.log(filteredByOccupation);
     }
   }
   checkForExistence(filteredByOccupation);
@@ -223,7 +206,6 @@ function searchByOccupation(people) {
 function searchByEyeColor(people) {
   let eyeColor = promptFor("What is the person's eye color?", chars);
   let filteredByEyeColor;
-
   filteredByEyeColor = people.filter(function (person) {
     if (person.eyeColor == eyeColor) {
       return true;
@@ -307,7 +289,6 @@ function chars(input){
 
 function findCurrentSpouse(people, person) {
   let personSpouseID = person.currentSpouse;
-  console.log(personSpouseID);
   let filterSpouse = people.filter(function (people)  {
     if (personSpouseID == people.id) {
       return true;
@@ -315,39 +296,55 @@ function findCurrentSpouse(people, person) {
       return false;
     }
   });
-  console.log(filterSpouse);
+  let currentSpouseName = filterSpouse[0].firstName + " " + filterSpouse[0].lastName;
+  return currentSpouseName;
 }
 
-function findParents(people, person) {
-  let personParents = []
+function findParents(people, person,) {
+  //let personParents = [];
+  let parentNames = "";
   for (let i = 0; i < people.length; i++ ) {
     for(let j=0; j<person.parents.length; j++) {
       if (people[i].id === person.parents[j]) {
-      personParents.push(people[i]);
+        //personParents.push(people[i]);
+        parentNames += people[i].firstName + " " + people[i].lastName + ", ";
       }
     }
   }
-  console.log(personParents);
+  //return personParents;
+  return parentNames;
 }
 
 function findChildren (people,person) {
-    let children = [];
-    for (let i = 0; i < people.length; i++) {
-      for (let j=0; j<people[i].parents.length; j++) {
-        if (person.id == people[i].parents[j]) {
-          children.push(people[i]);
-        }
+  let childrenNames = "";
+  for (let i = 0; i < people.length; i++) {
+    for (let j=0; j<people[i].parents.length; j++) {
+      if (person.id == people[i].parents[j]) {
+       childrenNames += people[i].firstName + " " + people[i].lastName + ", ";
       }
     }
-    console.log(children);
+  }
+  return childrenNames;
 }
 
 function findSiblings (people,person) {
-  let parents = findParents(person);
-  let children = findChildren(parents);
-  console.log(children)
+  let parents = findParents(people, person);
+  let childrenOfParents = findChildren(people, parents);
+  return childrenOfParents;
 }
 
-function findDescendants (people) {
+function findDescendants (people, person) {
+  
+// .concat()
+  for (let i = 0; i < people.length; i++) {
 
+    for (let j=0; j<people[i].parents.length; j++) {
+      let descendants = [];
+      if (person.id == people[i].parents[j]) {
+       descendants.push(people[i]);
+      }
+    }
+  }
+  findDescendants(people, descendants);
+  console.log(descendants);
 }
