@@ -62,7 +62,7 @@ function searchByTraits (people) {
 }
 
 // Menu function to call once you find who you are looking for
-function mainMenu(person, people, firstAndLastName){
+function mainMenu(person, people, firstAndLastName, filteredByAge, filteredByHeight, filteredByOccupation, filteredByWeight, filteredByColor){
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. 
   We need people in order to find descendants and other information that the user may want. */
 
@@ -75,13 +75,13 @@ function mainMenu(person, people, firstAndLastName){
 
   switch(displayOption){
     case "info":
-    displayInfo(person, people, firstAndLastName);
+    displayInfo(person, people, firstAndLastName, filteredByAge, filteredByHeight, filteredByOccupation, filteredByWeight, filteredByColor);
     break;
     case "family":
     displayFamily(people, person);
     break;
     case "descendants":
-    findDescendants(people,person);
+    findDescendants(person, people, firstAndLastName, filteredByAge, filteredByHeight, filteredByOccupation, filteredByWeight, filteredByColor);
     break;
     case "restart":
     app(people); 
@@ -93,7 +93,7 @@ function mainMenu(person, people, firstAndLastName){
   }
 }
 
-function displayInfo (person ) {
+function displayInfo (person) {
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
   personInfo += "Gender: " + person.gender + "\n";
@@ -114,9 +114,20 @@ function displayFamily(people, person) {
  alert(familyInfo);
 }
 
-function displayDescendants(person) {
-// must use iteration
+function findDescendants (people, person) {
+  for (let i = 0; i < people.length; i++) {
+
+   for (let j=0; j<people[i].parents.length; j++) {
+      let descendants = [];
+      if (person.id == people[i].parents[j]) {
+       descendants.push(people[i]);
+      }
+    }
+  }
+  findDescendants(people, descendants);
+  console.log(descendants);
 }
+
   
 function searchByName(people){
   let lastName = promptFor("What is the person's LAST name?", chars).toLowerCase();
@@ -143,41 +154,74 @@ function searchByName(people){
 function searchByAge(people) {
   let age = promptFor("What is the person's age?", chars);
   let filteredByAge = people.filter(function (person) {
-    if (person.age == age) {
-      return true;
-    } else {
-      return false;
+        if (person.age == age) {
+          return true;
+        } else {
+          return false;
+        }
+return(filteredByAge);
+    });
+function checkForExistence(filteredByAge){
+  if (filteredByAge.length == 0){
+  alert("No one in our database has that age. Please try another age.");
+  searchByAge(people);
+  } 
+  else if (filteredByAge.length > 1){
+    console.log(filteredByAge);
+    let multipleSearch=promptFor("There are more than one person with that age. Need more information. If you want to search by name, type 'name'. Or you can search by different traits by typing 'trait'.", chars).toLowerCase();
+      switch(multipleSearch){ 
+        case "name":
+        searchByName(people);
+        break;
+        case "trait":
+        searchByTraits(people);
+        break;
+        default:
+        return checkForExistence(); 
+        break;
+        }
     }
-      return(filteredByAge);
-  });
-  function checkForExistence(filteredByAge){
-    if (filteredByAge.length == 0){
-      alert("No one in our database has that age. Please try another age.");
-      searchByAge(people);
-    }else{
-      console.log(filteredByAge);
-    }
+  else{
+  console.log(filteredByAge);
+  mainMenu(filteredByAge[0], people, filteredByAge[0].firstName + " " + filteredByAge[0].lastName);
+  return filteredByAge;
   }
+}
   checkForExistence(filteredByAge);
-  mainMenu(filteredByAge); 
 }
 
 function searchByHeight(people) {
   let height = promptFor("What is the person's height IN INCHES?", chars);
   let filteredByHeight = people.filter(function (person) {
     if (person.height == height) {
-      return true;
+    return true;
     } else {
-      return false;}
-      return(filteredByHeight);
-  }); 
-  function checkForExistence(filteredByHeight){
-    if (filteredByHeight.length == 0){
-      alert("No one in our database has that height. Please try another height, in inches only.");
-      searchByHeight(people);
-    } else {
-      console.log(filteredByHeight);
+    return false;}
+    return(filteredByHeight);
+     });
+function checkForExistence(filteredByHeight){
+  if (filteredByHeight.length == 0){
+  alert("No one in our database has that height. Please try another height, in inches only.");
+  searchByHeight(people);
+  }
+  else if (filteredByHeight.length > 1){
+   console.log(filteredByHeight);
+   let multipleSearch=promptFor("There are more than one person with that height. Need more information. If you want to search by name, type 'name'. Or you can search by different traits by typing 'trait'.", chars).toLowerCase();
+     switch(multipleSearch){
+       case "name":
+       searchByName(people);
+       break;
+       case "trait":
+       searchByTraits(people);
+       break;
+       default:
+       return checkForExistence(); 
+       break;
+       }
     }
+  else{
+  console.log(filteredByHeight);
+  mainMenu(filteredByHeight[0], people, filteredByHeight[0].firstName + " " + filteredByHeight[0].lastName);
   }
   checkForExistence(filteredByHeight);
 }  
@@ -186,38 +230,74 @@ function searchByHeight(people) {
 function searchByOccupation(people) {
   let occupation = promptFor("What is the person's occupation?", chars);
   let filteredByOccupation = people.filter(function (person) {
-    if (person.occupation == occupation) {
-      return true;
-    } else {
-      return false;
-    }
-      return(filteredByOccupation);
+        if (person.occupation == occupation) {
+          return true;
+        } else {
+          return false;
+        }
      });
-  function checkForExistence(filteredByOccupation){
-    if (filteredByOccupation.length == 0){
-      alert("No one in our database is employed thus. Please try another occupation.");
-      searchByOccupation(people);
-    }else{
+          console.log(filteredByOccupation);
+function checkForExistence(filteredByOccupation){
+  if (filteredByOccupation.length == 0){
+    alert("No one in our database is employed thus. Please try another occupation.");
+    searchByOccupation(people);
     }
-  }
+  else if (filteredByOccupation.length > 1){
+    console.log(filteredByOccupation);
+    let multipleSearch=promptFor("There are more than one person with that occupation. Need more information. If you want to search by name, type 'name'. Or you can search by different traits by typing 'trait'.", chars).toLowerCase();
+      switch(multipleSearch){
+        case "name":
+        searchByName(people);
+        break;
+        case "trait":
+        searchByTraits(people);
+        break;
+        default:
+        break;
+        }
+    }
+        else{
+          console.log(filteredByOccupation);
+          mainMenu(filteredByOccupation[0], people, filteredByOccupation[0].firstName + " " + filteredByOccupation[0].lastName);
+              }
+            }
   checkForExistence(filteredByOccupation);
+  return(filteredByOccupation);
 }
 
 function searchByWeight(people) {
   let weight = promptFor("What is the person's weight IN POUNDS?", chars);
   let filteredByWeight = people.filter(function (person) {
     if (person.weight == weight) {
-      return true;
+    return true;
     } else {
-      return false;}
-      return(filteredByWeight);
-  });
-  function checkForExistence(filteredByWeight){
-    if (filteredByWeight.length == 0){
-      alert("No one in our database has that weight. Please try another weight, in pounds only.");
-      searchByWeight(people);
-    }else{
-      console.log(filteredByWeight);
+    return false;}
+    
+    return(filteredByWeight);
+     });
+function checkForExistence(filteredByWeight){
+  if (filteredByWeight.length == 0){
+    alert("No one in our database has that weight. Please try another weight, in pounds only.");
+    searchByWeight(people);
+    }
+  else if (filteredByWeight.length > 1){
+    console.log(filteredByWeight)
+    let multipleSearch=promptFor("There are more than one person with that weight. Need more information. If you want to search by name, type 'name'. Or you can search by different traits by typing 'trait'.", chars).toLowerCase();
+      switch(multipleSearch){
+        case "name":
+        searchByName(people);
+        break;
+        case "trait":
+        searchByTraits(people);
+        break;
+        default:
+        return checkForExistence(); 
+        break;
+        }
+    }
+  else{
+    console.log(filteredByWeight);
+    mainMenu(filteredByWeight[0], people, filteredByWeight[0].firstName + " " + filteredByWeight[0].lastName);
     }
   }
   checkForExistence(filteredByWeight);
@@ -227,22 +307,42 @@ function searchByEyeColor(people) {
  let eyeColor = promptFor("What is the person's eye color?", chars);
   let filteredByColor = people.filter(function (person) {
     if (person.eyeColor == eyeColor) {
-      return true;
+    return true;
     } else {
-      return false;}
-      return(filteredByColor);
-  });
-  function checkForExistence(filteredByColor){
-    if (filteredByColor.length == 0){
-      alert("No one in our database has that eye color. Please try another color.");
-      searchByEyeColor(people);
-    }else{
-      console.log(filteredByColor);
-    }
+    return false;}
+           
+    return(filteredByColor);
+    console.log(filteredByColor);
+     });
+function checkForExistence(filteredByColor){
+  if (filteredByColor.length == 0){
+    alert("No one in our database has that eye color. Please try another color.");
+    searchByEyeColor(people);
   }
+  else if (filteredByColor.length > 1){
+    console.log(filteredByColor);
+    let multipleSearch=promptFor("There are more than one person with that eye color. Need more information. If you want to search by name, type 'name'. Or you can search by different traits by typing 'trait'.", chars).toLowerCase();
+      switch(multipleSearch){
+        case "name":
+        searchByName(people);
+        break;
+        case "trait":
+        searchByTraits(people);
+        break;
+        default:
+        return checkForExistence(); 
+        break;
+        }
+    }
+  else{
+    console.log(filteredByColor);
+    mainMenu(filteredByColor[0], people, filteredByColor[0].firstName + " " + filteredByColor[0].lastName);
+      }
+    }
   checkForExistence(filteredByColor);
 }
 
+// alerts a list of people
 function displayPeople(people){
   alert(people.map(function(person){
     return person.firstName + " " + person.lastName;
